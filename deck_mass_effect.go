@@ -1,0 +1,29 @@
+package cardsagainstdiscord
+
+func init() {
+	pack := &CardPack{
+		Name:        "Mass Effect Pack",
+		Description: "Mass Effect Pack pack",
+		Prompts: []*PromptCard{
+			&PromptCard{Prompt: `Coming this spring from BioWare, Mass Effect: _.`},
+			&PromptCard{Prompt: `I'm Commander Shepard, and this is my favorite place for _ on the Citadel.`},
+			&PromptCard{Prompt: `It turns out the Reapers didn't want to destroy the galaxy. They just wanted _.`},
+			&PromptCard{Prompt: `We were the two best hand-to-hand combatants on the ship. I had reach, but she had _.`},
+		},
+
+		Responses: []ResponseCard{
+			`An armored Krogan war-clitoris.`,
+			`An emergency induction port.`,
+			`An extremely long elevator ride.`,
+			`Bone-shattering sex with a metal woman.`,
+			`Falling I actual love with a video game character.`,
+			`My complicated backstory that you will soon learn about.`,
+			`Running a few errands before saving the galaxy.`,
+			`Space racism.`,
+			`The Genophage.`,
+			`Totally fuckable aliens.`,
+		},
+	}
+
+	AddPack(pack)
+}

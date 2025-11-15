@@ -1,0 +1,24 @@
+package cardsagainstdiscord
+
+func init() {
+	pack := &CardPack{
+		Name:        "nerd-bundle-a-few-more-cards-for-you-nerds-target-exclusive",
+		Description: "Nerd Bundle: A Few More Cards For You Nerds (Target Exclusive)",
+		Prompts: []*PromptCard{
+			&PromptCard{Prompt: `Did not enjoy %s. One star.`},
+		},
+		Responses: []ResponseCard{
+			`A hit new fantasy show called "Penis Man."`,
+			`A magnificent chrome sphere that roams the streets evaporating criminals.`,
+			`Eating up whatever slop Marvel throws out there.`,
+			`Hot dog, the game you can eat, but only once.`,
+			`Not exercising.`,
+			`Running afoul of the sultan's Janissaries.`,
+			`Scrimshaw, the art of bone carving.`,
+			`The illusion of linear time.`,
+			`The last season of Game of Thrones.`,
+		},
+	}
+
+	AddPack(pack)
+}

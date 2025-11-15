@@ -1,15 +1,17 @@
 package main
 
 import (
-	"github.com/jonas747/cardsagainstdiscord"
-	"github.com/jonas747/dcmd"
-	"github.com/jonas747/discordgo"
-	"github.com/jonas747/dstate"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"sort"
 	"strings"
+
+	"github.com/jonas747/cardsagainstdiscord"
+	"github.com/jonas747/dcmd"
+	"github.com/jonas747/discordgo"
+	"github.com/jonas747/dstate"
 )
 
 var cahManager *cardsagainstdiscord.GameManager
@@ -38,7 +40,7 @@ func main() {
 	cmdSys.Root.AddCommand(CreateGameCommand, dcmd.NewTrigger("create", "c").SetDisableInDM(true))
 	cmdSys.Root.AddCommand(StopCommand, dcmd.NewTrigger("stop", "end", "s").SetDisableInDM(true))
 	cmdSys.Root.AddCommand(KickCommand, dcmd.NewTrigger("kick").SetDisableInDM(true))
-	cmdSys.Root.AddCommand(PacksCommand, dcmd.NewTrigger("packs").SetDisableInDM(true))
+	cmdSys.Root.AddCommand(PacksCommand, dcmd.NewTrigger("packs", "p").SetDisableInDM(true))
 
 	session.AddHandler(state.HandleEvent)
 	session.AddHandler(cmdSys.HandleMessageCreate)
@@ -46,9 +48,12 @@ func main() {
 		go cahManager.HandleReactionAdd(ra)
 	})
 
-	session.AddHandler(func(s *discordgo.Session, msg *discordgo.MessageCreate) {
-		go cahManager.HandleMessageCreate(msg)
-	})
+	// session.AddHandler(func(s *discordgo.Session, msg *discordgo.MessageCreate) {
+	// 	if msg.Author.ID == s.State.User.ID {
+	// 		return // Ignore own messages
+	// 	}
+	// 	log.Printf("DEBUG: Processing message: %q", msg.Content)
+	// })
 
 	err = session.Open()
 	panicErr(err, "Failed opening gateway connection")
@@ -128,8 +133,17 @@ var KickCommand = &dcmd.SimpleCmd{
 var PacksCommand = &dcmd.SimpleCmd{
 	ShortDesc: "Lists available packs",
 	RunFunc: func(data *dcmd.Data) (interface{}, error) {
-		resp := "Available packs: \n\n"
+		// Convert map to slice and sort by name (case-insensitive)
+		packs := make([]*cardsagainstdiscord.CardPack, 0, len(cardsagainstdiscord.Packs))
 		for _, v := range cardsagainstdiscord.Packs {
+			packs = append(packs, v)
+		}
+		sort.Slice(packs, func(i, j int) bool {
+			return strings.ToLower(packs[i].Name) < strings.ToLower(packs[j].Name)
+		})
+
+		resp := "Available packs:\n\n"
+		for _, v := range packs {
 			resp += "`" + v.Name + "` - " + v.Description + "\n"
 		}
 

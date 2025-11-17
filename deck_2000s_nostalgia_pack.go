@@ -28,7 +28,7 @@ func init() {
 			`Going to prom with a 108-year-old vampire.`,
 			`Hoobastank.`,
 			`Letting the terrorists win.`,
-			`My son and business partner H.W. Plainview.`,
+			`My son and business partnew H.W. Plainview.`,
 			`Starting to be cool about gay people.`,
 			`Sustainability`,
 			`Taking a blurry photo of my penis on my Motorola Razr.`,

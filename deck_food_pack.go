@@ -6,7 +6,7 @@ func init() {
 		Description: "Food Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Aw babe, your burbs smell like %s.`},
-			&PromptCard{Prompt: `Don't fear failure fear %s`},
+			&PromptCard{Prompt: "Don`t fear failure fear %s"},
 			&PromptCard{Prompt: `Excuse me, waiter. Could you take this back? This soup tastes like %s.`},
 			&PromptCard{Prompt: `I'm Bobby Flay, and if you can't stand %s. get out of the kitchen!`},
 			&PromptCard{Prompt: `It's not delivery. It's %s.`},

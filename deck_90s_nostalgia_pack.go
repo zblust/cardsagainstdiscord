@@ -8,9 +8,9 @@ func init() {
 			&PromptCard{Prompt: `Believe it or not Jim Carrey can do a dead-on impression of %s.`},
 			&PromptCard{Prompt: `How did Stella get her groove back? %s`},
 			&PromptCard{Prompt: `I'm a bitch, I'm a lover, I'm a child, I'm %s.`},
-			&PromptCard{Prompt: `It's Morphin' Time! %s!`},
+			&PromptCard{Prompt: `It's Morphin' Time! Mastodon! Pterodactyl! Triceratops! Sabertooth Tiger! %s!`},
 			&PromptCard{Prompt: `Siskel and Ebert have panned %s as "poorly conceived" and "sloppily executed."`},
-			&PromptCard{Prompt: `Tonight on SNICK: "%s"`},
+			&PromptCard{Prompt: `Tonight on SNICK: "Are You Afriad of %s?`},
 			&PromptCard{Prompt: `Up next on Nickelodeon: "Clarissa Explains %s."`},
 		},
 		Responses: []ResponseCard{

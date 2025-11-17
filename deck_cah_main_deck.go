@@ -5,11 +5,11 @@ func init() {
 		Name:        "CAH: Main Deck",
 		Description: "CAH: Main Deck pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Channel 4 presents "_: the Story of _."`},
-			&PromptCard{Prompt: `Dear Agony Aunt, I'm having some trouble with _ and would like your advice.`},
-			&PromptCard{Prompt: `Hey guys, welcome to TGI Fridays! Would you like to start the night off right with _?`},
-			&PromptCard{Prompt: `Mate, do not go in that toilet. There's _ in there.`},
-			&PromptCard{Prompt: `This season at the Old Vic, Samuel Beckett's classic existential play: Waiting for _.`},
+			&PromptCard{Prompt: `Channel 4 presents "%s: the Story of %s."`},
+			&PromptCard{Prompt: `Dear Agony Aunt, I'm having some trouble with %s and would like your advice.`},
+			&PromptCard{Prompt: `Hey guys, welcome to TGI Fridays! Would you like to start the night off right with %s?`},
+			&PromptCard{Prompt: `Mate, do not go in that toilet. There's %s in there.`},
+			&PromptCard{Prompt: `This season at the Old Vic, Samuel Beckett's classic existential play: Waiting for %s.`},
 		},
 		Responses: []ResponseCard{
 			`A comprehensive understanding of the Irish backstop.`,

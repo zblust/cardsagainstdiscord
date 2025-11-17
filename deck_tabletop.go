@@ -5,9 +5,9 @@ func init() {
 		Name:        "TableTop Pack",
 		Description: "TableTop Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Backers who supported Tabletop at the $25,000 level were astonished to receive _ from Wil Wheaton himself.`},
-			&PromptCard{Prompt: `For my turn, I will spend four gold and allocate all three workers to _.`},
-			&PromptCard{Prompt: `Hey, you guys want to try this awesome new game? It's called _.`},
+			&PromptCard{Prompt: `Backers who supported Tabletop at the $25,000 level were astonished to receive %s from Wil Wheaton himself.`},
+			&PromptCard{Prompt: `For my turn, I will spend four gold and allocate all three workers to %s.`},
+			&PromptCard{Prompt: `Hey, you guys want to try this awesome new game? It's called %s.`},
 		},
 
 		Responses: []ResponseCard{

@@ -5,9 +5,9 @@ func init() {
 		Name:        "Theatre Pack - CATS Musical Pack",
 		Description: "Theatre Pack - CATS Musical Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `_! All alone in the moonlight!`},
-			&PromptCard{Prompt: `Ahhh _! Toodle pip!`},
-			&PromptCard{Prompt: `Jellicle Cats come out tonight, Jellicle Cats come one, come all, the time for _ is now, Jellicles come to the Jellicle Ball.`},
+			&PromptCard{Prompt: `%s! All alone in the moonlight!`},
+			&PromptCard{Prompt: `Ahhh %s! Toodle pip!`},
+			&PromptCard{Prompt: `Jellicle Cats come out tonight, Jellicle Cats come one, come all, the time for %s is now, Jellicles come to the Jellicle Ball.`},
 		},
 
 		Responses: []ResponseCard{

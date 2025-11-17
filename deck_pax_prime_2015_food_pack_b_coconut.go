@@ -5,8 +5,8 @@ func init() {
 		Name:        "PAX Prime 2015 Food Pack B (Coconut)",
 		Description: "PAX Prime 2015 Food Pack B (Coconut) pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Aw babe, your burps smell like _!`},
-			&PromptCard{Prompt: `Don't miss Rachel Ray's hit new show, Cooking with _.`},
+			&PromptCard{Prompt: `Aw babe, your burps smell like %s!`},
+			&PromptCard{Prompt: `Don't miss Rachel Ray's hit new show, Cooking with %s.`},
 		},
 
 		Responses: []ResponseCard{

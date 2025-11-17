@@ -5,8 +5,8 @@ func init() {
 		Name:        "PAX East 2013 Promo Pack B",
 		Description: "PAX East 2013 Promo Pack B pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Action stations! Action stations! Set condition one throughout the fleet and brace for _!`},
-			&PromptCard{Prompt: `In the final round of this year's Omegathon, Omeganauts must face off in a game of _.`},
+			&PromptCard{Prompt: `Action stations! Action stations! Set condition one throughout the fleet and brace for %s!`},
+			&PromptCard{Prompt: `In the final round of this year's Omegathon, Omeganauts must face off in a game of %s.`},
 		},
 		Responses: []ResponseCard{
 			`Getting inside the Horadric Cube with a hot babe and pressing the transmute button.`,

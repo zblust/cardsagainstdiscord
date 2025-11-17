@@ -5,11 +5,11 @@ func init() {
 		Name:        "Period Pack",
 		Description: "Period Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Can a woman really have it all? A career and _?`},
-			&PromptCard{Prompt: `My body, my voice! _, my choice!`},
-			&PromptCard{Prompt: `My vagina's angry. My vagina's furious and needs to talk. It needs to talk about _.`},
-			&PromptCard{Prompt: `New fom Mattel, it's _ Barbie!`},
-			&PromptCard{Prompt: `Tampax: Don't let your period ruin _.`},
+			&PromptCard{Prompt: `Can a woman really have it all? A career and %s?`},
+			&PromptCard{Prompt: `My body, my voice! %s, my choice!`},
+			&PromptCard{Prompt: `My vagina's angry. My vagina's furious and needs to talk. It needs to talk about %s.`},
+			&PromptCard{Prompt: `New fom Mattel, it's %s Barbie!`},
+			&PromptCard{Prompt: `Tampax: Don't let your period ruin %s.`},
 			&PromptCard{Prompt: `What gets me wet?`},
 		},
 

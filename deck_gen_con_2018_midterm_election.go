@@ -5,7 +5,7 @@ func init() {
 		Name:        "Gen Con 2018 Midterm Election Pack",
 		Description: "Gen Con 2018 Midterm Election Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `If Mike Pence could dream, he would dream about _.`},
+			&PromptCard{Prompt: `If Mike Pence could dream, he would dream about %s.`},
 			&PromptCard{Prompt: `What will finally make me care?`},
 		},
 

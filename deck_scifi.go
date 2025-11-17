@@ -5,13 +5,13 @@ func init() {
 		Name:        "Sci-Fi Pack",
 		Description: "Sci-Fi Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Computer! Display _ on screen. Enhance.`},
-			&PromptCard{Prompt: `Feeling nostalgic when you remember _ from your childhood.`},
-			&PromptCard{Prompt: `Madam President, the asteroid is headed directly for Earth and there's only one thing that can stop it: _.`},
-			&PromptCard{Prompt: `This won't be like negotiating with the Vogons. Humans only respond to one thing: _.`},
+			&PromptCard{Prompt: `Computer! Display %s on screen. Enhance.`},
+			&PromptCard{Prompt: `Feeling nostalgic when you remember %s from your childhood.`},
+			&PromptCard{Prompt: `Madam President, the asteroid is headed directly for Earth and there's only one thing that can stop it: %s.`},
+			&PromptCard{Prompt: `This won't be like negotiating with the Vogons. Humans only respond to one thing: %s.`},
 			&PromptCard{Prompt: `What is the answer to life, the universe, and everything?`},
-			&PromptCard{Prompt: `You have violated the Prime Directive! You exposed an alien culture to _ before they were ready.`},
-			&PromptCard{Prompt: `You're not going to believe this, but I'm you from the future! You've got to stop _.`},
+			&PromptCard{Prompt: `You have violated the Prime Directive! You exposed an alien culture to %s before they were ready.`},
+			&PromptCard{Prompt: `You're not going to believe this, but I'm you from the future! You've got to stop %s.`},
 		},
 
 		Responses: []ResponseCard{

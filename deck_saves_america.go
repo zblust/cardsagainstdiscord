@@ -5,13 +5,13 @@ func init() {
 		Name:        "Cards Against Humanity Saves America Pack",
 		Description: "Cards Against Humanity Saves America Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `"They're bringing drugs. They're bringing crime. They're rapists. And some, I assume, are _."`},
-			&PromptCard{Prompt: `Cry havoc and let slip _!`},
-			&PromptCard{Prompt: `Now is the winter of our discontent, made glorious summer by _.`},
-			&PromptCard{Prompt: `The fault, dear Brutus, is not in our stars, but in _.`},
-			&PromptCard{Prompt: `We want a pitcher, not _!`},
-			&PromptCard{Prompt: `When asked about the biggest threat facing the nation, 60% of Americans said _.`},
-			&PromptCard{Prompt: `You see, son, baseball is like _. Don't overthink it.`},
+			&PromptCard{Prompt: `"They're bringing drugs. They're bringing crime. They're rapists. And some, I assume, are %s."`},
+			&PromptCard{Prompt: `Cry havoc and let slip %s!`},
+			&PromptCard{Prompt: `Now is the winter of our discontent, made glorious summer by %s.`},
+			&PromptCard{Prompt: `The fault, dear Brutus, is not in our stars, but in %s.`},
+			&PromptCard{Prompt: `We want a pitcher, not %s!`},
+			&PromptCard{Prompt: `When asked about the biggest threat facing the nation, 60% of Americans said %s.`},
+			&PromptCard{Prompt: `You see, son, baseball is like %s. Don't overthink it.`},
 		},
 
 		Responses: []ResponseCard{

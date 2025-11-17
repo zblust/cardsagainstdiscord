@@ -5,12 +5,12 @@ func init() {
 		Name:        "Science Pack",
 		Description: "Science Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `A study published in Nature this week found that _ is good for you in small doses.`},
-			&PromptCard{Prompt: `Hey there, Young Scientists! Put on your labcoats and strap on your safety goggles, because today we're learning about _!`},
-			&PromptCard{Prompt: `In an attempt to recreate conditions just after the Big Bang, physicists at the LHC are observing collisions between _ and _.`},
-			&PromptCard{Prompt: `In line with our predictions, we find a robust correlation between _ and _ (p<.05).`},
-			&PromptCard{Prompt: `In what's being hailed as a major breakthrough, scientists have synthesized _ in the lab.`},
-			&PromptCard{Prompt: `Today on Mythbusters, we found out how long _ can withstand _.`},
+			&PromptCard{Prompt: `A study published in Nature this week found that %s is good for you in small doses.`},
+			&PromptCard{Prompt: `Hey there, Young Scientists! Put on your labcoats and strap on your safety goggles, because today we're learning about %s!`},
+			&PromptCard{Prompt: `In an attempt to recreate conditions just after the Big Bang, physicists at the LHC are observing collisions between %s and %s.`},
+			&PromptCard{Prompt: `In line with our predictions, we find a robust correlation between %s and %s (p<.05).`},
+			&PromptCard{Prompt: `In what's being hailed as a major breakthrough, scientists have synthesized %s in the lab.`},
+			&PromptCard{Prompt: `Today on Mythbusters, we found out how long %s can withstand %s.`},
 			&PromptCard{Prompt: `What really killed the dinosaurs?`},
 		},
 

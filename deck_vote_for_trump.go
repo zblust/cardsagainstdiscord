@@ -5,9 +5,9 @@ func init() {
 		Name:        "Vote For Trump Pack",
 		Description: "Vote For Trump Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `According to Arizona's stand-your-ground law, you're allowed to shoot someone if they're _.`},
-			&PromptCard{Prompt: `It's 3AM.  The red phone rings.  It's _.  Who do you want answering?`},
-			&PromptCard{Prompt: `Trump's great!  Trump's got _.  I love that.`},
+			&PromptCard{Prompt: `According to Arizona's stand-your-ground law, you're allowed to shoot someone if they're %s.`},
+			&PromptCard{Prompt: `It's 3AM.  The red phone rings.  It's %s.  Who do you want answering?`},
+			&PromptCard{Prompt: `Trump's great!  Trump's got %s.  I love that.`},
 		},
 
 		Responses: []ResponseCard{

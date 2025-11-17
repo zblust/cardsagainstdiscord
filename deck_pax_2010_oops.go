@@ -5,11 +5,11 @@ func init() {
 		Name:        "PAX 2010 \"Oops\" Kit",
 		Description: "PAX 2010 \"Oops\" Kit pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `_: Has science gone too far?`},
+			&PromptCard{Prompt: `%s: Has science gone too far?`},
 			&PromptCard{Prompt: `Daddy, why is Mommy crying?`},
-			&PromptCard{Prompt: `Dear Agony Aunt, I'm having some trouble with _ and I need your advice.`},
-			&PromptCard{Prompt: `I dropped my cellphone in the _ and now it won't work anymore.`},
-			&PromptCard{Prompt: `Who ate my _ again?`},
+			&PromptCard{Prompt: `Dear Agony Aunt, I'm having some trouble with %s and I need your advice.`},
+			&PromptCard{Prompt: `I dropped my cellphone in the %s and now it won't work anymore.`},
+			&PromptCard{Prompt: `Who ate my %s again?`},
 		},
 
 		Responses: []ResponseCard{

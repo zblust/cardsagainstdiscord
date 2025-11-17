@@ -5,11 +5,11 @@ func init() {
 		Name:        "PAX East 2014",
 		Description: "PAX East 2014 pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `_ is way too much responsibility for me.`},
-			&PromptCard{Prompt: `(insert name) died when _.`},
-			&PromptCard{Prompt: `Unfortunately, Neo, no one can be told what _ is. You have to see it for yourself.`},
-			&PromptCard{Prompt: `What the hell?! They added a 6/6 with flying, trample and _.`},
-			&PromptCard{Prompt: `You think you have defeated me? Well, let's see how you handle _.`},
+			&PromptCard{Prompt: `%s is way too much responsibility for me.`},
+			&PromptCard{Prompt: `(insert name) died when %s.`},
+			&PromptCard{Prompt: `Unfortunately, Neo, no one can be told what %s is. You have to see it for yourself.`},
+			&PromptCard{Prompt: `What the hell?! They added a 6/6 with flying, trample and %s.`},
+			&PromptCard{Prompt: `You think you have defeated me? Well, let's see how you handle %s.`},
 		},
 
 		Responses: []ResponseCard{

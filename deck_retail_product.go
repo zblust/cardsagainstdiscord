@@ -5,7 +5,7 @@ func init() {
 		Name:        "Retail Product Pack",
 		Description: "Retail Product Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Wait, I came here to buy socks. How did I wind up with _?`},
+			&PromptCard{Prompt: `Wait, I came here to buy socks. How did I wind up with %s?`},
 		},
 
 		Responses: []ResponseCard{

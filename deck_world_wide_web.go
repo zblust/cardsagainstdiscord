@@ -5,15 +5,15 @@ func init() {
 		Name:        "World Wide Web Pack",
 		Description: "World Wide Web Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Don't worry, Penny! Go Go Gadget _!`},
-			&PromptCard{Prompt: `I need you like _ needs _.`},
-			&PromptCard{Prompt: `I'm just gonna stay in tonight. You know, Netflix and _.`},
-			&PromptCard{Prompt: `Nothing says "I love you" like _.`},
-			&PromptCard{Prompt: `Such _. Very _. Wow.`},
-			&PromptCard{Prompt: `This app is basically Tinder, but for _.`},
-			&PromptCard{Prompt: `TRIGGER WARNING: _.`},
+			&PromptCard{Prompt: `Don't worry, Penny! Go Go Gadget %s!`},
+			&PromptCard{Prompt: `I need you like %s needs %s.`},
+			&PromptCard{Prompt: `I'm just gonna stay in tonight. You know, Netflix and %s.`},
+			&PromptCard{Prompt: `Nothing says "I love you" like %s.`},
+			&PromptCard{Prompt: `Such %s. Very %s. Wow.`},
+			&PromptCard{Prompt: `This app is basically Tinder, but for %s.`},
+			&PromptCard{Prompt: `TRIGGER WARNING: %s.`},
 			&PromptCard{Prompt: `What did I nickname my genitals?`},
-			&PromptCard{Prompt: `You guys, you can buy _ on the dark web.`},
+			&PromptCard{Prompt: `You guys, you can buy %s on the dark web.`},
 		},
 
 		Responses: []ResponseCard{

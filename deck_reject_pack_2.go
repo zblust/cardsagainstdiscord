@@ -5,16 +5,16 @@ func init() {
 		Name:        "Reject Pack 2",
 		Description: "Reject Pack 2 pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `America is hungry. America needs _.`},
-			&PromptCard{Prompt: `Astronomers have discovered that the universe consists of 5% ordinary matter, 25% dark matter, and 70% _.`},
-			&PromptCard{Prompt: `BowWOW! is the first pet hotel in LA that offers _ for dogs.`},
+			&PromptCard{Prompt: `America is hungry. America needs %s.`},
+			&PromptCard{Prompt: `Astronomers have discovered that the universe consists of 5% ordinary matter, 25% dark matter, and 70% %s.`},
+			&PromptCard{Prompt: `BowWOW! is the first pet hotel in LA that offers %s for dogs.`},
 			&PromptCard{Prompt: `Hey, whatever happened to Renee Zellweger?`},
-			&PromptCard{Prompt: `Housekeeping! You want _?`},
-			&PromptCard{Prompt: `In bourgeois society, capital is independent and has individuality, while the living person is _.`},
-			&PromptCard{Prompt: `Some men aren't looking for anything logical, like money. They can't be bought, bullied, reasoned or negotiated with. Some men just want _.`},
+			&PromptCard{Prompt: `Housekeeping! You want %s?`},
+			&PromptCard{Prompt: `In bourgeois society, capital is independent and has individuality, while the living person is %s.`},
+			&PromptCard{Prompt: `Some men aren't looking for anything logical, like money. They can't be bought, bullied, reasoned or negotiated with. Some men just want %s.`},
 			&PromptCard{Prompt: `What's wrong with these gorillas?`},
 			&PromptCard{Prompt: `Why did the fusion exchanges end?`},
-			&PromptCard{Prompt: `You say tomato, I say _.`},
+			&PromptCard{Prompt: `You say tomato, I say %s.`},
 		},
 
 		Responses: []ResponseCard{

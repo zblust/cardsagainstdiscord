@@ -5,9 +5,9 @@ func init() {
 		Name:        "PAX Prime 2015 Food Pack A (Mango)",
 		Description: "PAX Prime 2015 Food Pack A (Mango) pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `I'm Bobby Flay, and if you can't stand _, get out of the kitchen!`},
+			&PromptCard{Prompt: `I'm Bobby Flay, and if you can't stand %s, get out of the kitchen!`},
 			&PromptCard{Prompt: `It's not delivery.
-It's _.`},
+It's %s.`},
 		},
 
 		Responses: []ResponseCard{

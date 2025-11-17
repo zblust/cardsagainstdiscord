@@ -5,14 +5,14 @@ func init() {
 		Name:        "Seasons Greetings Pack",
 		Description: "Seasons Greetings Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `Blood is thicker than _.`},
-			&PromptCard{Prompt: `Donna, pick up my dry cleaning and get my wife something for Christmas. I think she likes _.`},
+			&PromptCard{Prompt: `Blood is thicker than %s.`},
+			&PromptCard{Prompt: `Donna, pick up my dry cleaning and get my wife something for Christmas. I think she likes %s.`},
 			&PromptCard{Prompt: `Here's what you can expect for the new year.
-Out: _.
-In: _.`},
-			&PromptCard{Prompt: `It's beginning to look a lot like _.`},
-			&PromptCard{Prompt: `Jesus performed the miracle of _ but it was never recorded.`},
-			&PromptCard{Prompt: `This holiday season, Tim Allen must overcome his fear of _ to save Christmas.`},
+Out: %s.
+In: %s.`},
+			&PromptCard{Prompt: `It's beginning to look a lot like %s.`},
+			&PromptCard{Prompt: `Jesus performed the miracle of %s but it was never recorded.`},
+			&PromptCard{Prompt: `This holiday season, Tim Allen must overcome his fear of %s to save Christmas.`},
 			&PromptCard{Prompt: `What's the one thing that makes an elf instantly ejaculate?`},
 		},
 

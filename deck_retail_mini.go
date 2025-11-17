@@ -6,7 +6,7 @@ func init() {
 		Description: "Retail Mini Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `How are the writers of Cards Against Humanity spending your $25?`},
-			&PromptCard{Prompt: `Looking to earn big bucks? Learn how to make _ work for you!`},
+			&PromptCard{Prompt: `Looking to earn big bucks? Learn how to make %s work for you!`},
 		},
 
 		Responses: []ResponseCard{

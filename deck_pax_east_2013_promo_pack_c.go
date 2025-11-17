@@ -5,8 +5,8 @@ func init() {
 		Name:        "PAX East 2013 Promo Pack C",
 		Description: "PAX East 2013 Promo Pack C pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `I don't know exactly how I got the PAX plague, but I suspect it had something to do with _.`},
-			&PromptCard{Prompt: `Priests think about _ in their free time.`},
+			&PromptCard{Prompt: `I don't know exactly how I got the PAX plague, but I suspect it had something to do with %s.`},
+			&PromptCard{Prompt: `Priests think about %s in their free time.`},
 		},
 
 		Responses: []ResponseCard{

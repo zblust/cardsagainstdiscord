@@ -37,6 +37,7 @@ func main() {
 
 	cmdSys := dcmd.NewStandardSystem("!cah")
 	cmdSys.State = state
+	cmdSys.Root.AddCommand(HelpCommand, dcmd.NewTrigger("help", "h").SetDisableInDM(true))
 	cmdSys.Root.AddCommand(CreateGameCommand, dcmd.NewTrigger("create", "c").SetDisableInDM(true))
 	cmdSys.Root.AddCommand(StopCommand, dcmd.NewTrigger("stop", "end", "s").SetDisableInDM(true))
 	cmdSys.Root.AddCommand(KickCommand, dcmd.NewTrigger("kick").SetDisableInDM(true))
@@ -59,6 +60,51 @@ func main() {
 	// We import http/pprof above to be ale to inspect shizz and do profiling
 	go http.ListenAndServe(":7447", nil)
 	select {}
+}
+
+var HelpCommand = &dcmd.SimpleCmd{
+	ShortDesc: "Shows help for all Cards Against Humanity commands",
+	RunFunc: func(data *dcmd.Data) (interface{}, error) {
+		help := "**Cards Against Humanity Bot - Commands**\n\n" +
+			"**Game Management:**\n" +
+			"➕ `!cah create [packs] [-v]` (aliases: `c`)\n" +
+			"   Creates a new game in the current channel\n" +
+			"   • `packs` - Space-separated pack names or `*` for all packs (default: `main`)\n" +
+			"   • `-v` - Enable vote mode (no card czar, everyone votes)\n" +
+			"   Examples:\n" +
+			"   • `!cah create` - Start with main pack\n" +
+			"   • `!cah create main bluebox -v` - Start with main and bluebox in vote mode\n" +
+			"   • `!cah c *` - Start with all packs\n\n" +
+			"➖ `!cah stop` (aliases: `end`, `s`)\n" +
+			"   Stops the game in the current channel (game master only)\n" +
+			"   Example: `!cah stop`\n\n" +
+			"👢 `!cah kick <user>`\n" +
+			"   Kicks a player from the game (game master only)\n" +
+			"   • `user` - Mention the user to kick\n" +
+			"   Example: `!cah kick @username`\n\n" +
+			"📦 `!cah packs` (aliases: `p`)\n" +
+			"   Lists all available card packs\n" +
+			"   Example: `!cah packs`\n\n" +
+			"ℹ️ `!cah help` (aliases: `h`)\n" +
+			"   Shows this help message\n" +
+			"   Example: `!cah help`\n\n" +
+			"**In-Game Actions:**\n" +
+			"• React with ➕ to join a game\n" +
+			"• React with ➖ to leave a game\n" +
+			"• React with ⏯ to start/pause (game master only)\n" +
+			"• React with 🔄 to discard and redraw cards (during card selection)\n\n" +
+			"**Gameplay Features:**\n" +
+			"• **Card Discard/Redraw**: During your turn, react with 🔄 to enter discard mode, select cards to discard (marked with ✓), then react 🔄 again to confirm\n" +
+			"• **Solo Testing**: Use `-v` flag to enable solo play in vote mode for testing\n" +
+			"• All game communication happens via DM after joining\n\n" +
+			"**Tips:**\n" +
+			"• Use vote mode (`-v`) for casual/faster games or solo testing\n" +
+			"• You can include multiple packs by separating them with spaces\n" +
+			"• Game master can pause/resume with ⏯ and kick players\n" +
+			"• Players only receive DMs while actively in the game"
+
+		return help, nil
+	},
 }
 
 var CreateGameCommand = &dcmd.SimpleCmd{

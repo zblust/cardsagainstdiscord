@@ -329,9 +329,11 @@ func (g *Game) sendAnnouncment(msg string, allPlayers bool) {
 
 	if allPlayers {
 		for _, v := range g.Players {
-			go func(channel int64) {
-				g.Session.ChannelMessageSendEmbed(channel, embed)
-			}(v.Channel)
+			if v.InGame {
+				go func(channel int64) {
+					g.Session.ChannelMessageSendEmbed(channel, embed)
+				}(v.Channel)
+			}
 		}
 	}
 
@@ -418,7 +420,7 @@ func (g *Game) Tick() {
 
 			if !v.MadeSelections(g.CurrentPropmpt) {
 				allPlayersDone = false
-				if !v.sent15sWarning && time.Since(g.StateEntered) > (PickResponseDuration-(time.Second*15)) {
+				if v.InGame && !v.sent15sWarning && time.Since(g.StateEntered) > (PickResponseDuration-(time.Second*15)) {
 					v.sent15sWarning = true
 					go g.Session.ChannelMessageSendEmbed(v.Channel, &discordgo.MessageEmbed{Description: "You have 15 seconds left"})
 				}
@@ -939,7 +941,7 @@ func (g *Game) HandleMessageCreate(msg *discordgo.MessageCreate) {
 		}
 	}
 
-	if player == nil || !player.FilingBlankCard {
+	if player == nil || !player.InGame || !player.FilingBlankCard {
 		return
 	}
 
@@ -1087,7 +1089,7 @@ func (g *Game) presentWinners(winningPicks []*PickedResonse) {
 }
 
 func (g *Game) playerPickedResponseReaction(player *Player, ra *discordgo.MessageReactionAdd) {
-	if len(player.SelectedCards) >= g.CurrentPropmpt.NumPick {
+	if !player.InGame || len(player.SelectedCards) >= g.CurrentPropmpt.NumPick {
 		return
 	}
 

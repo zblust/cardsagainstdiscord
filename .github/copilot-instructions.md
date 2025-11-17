@@ -9,6 +9,25 @@ This repository implements a Discord Cards Against Humanity bot in Go. The notes
 - Packs are registered via init() functions in `deck_*.go` files which call `AddPack(&CardPack{...})`. Example: `deck_bluebox.go`.
 - Each `CardPack` has `Prompts` ([]*PromptCard) and `Responses` ([]ResponseCard). Prompt cards may contain multiple `%s` placeholders; `cad.go` sets `NumPick` accordingly during `AddPack`.
 
+Deck file format and conventions:
+- **Filename pattern**: `deck_<packname>.go` (e.g., `deck_bluebox.go`, `deck_main.go`, `deck_third.go`)
+- **Package**: All deck files are in the top-level `cardsagainstdiscord` package
+- **Structure**: Each file contains a single `init()` function that creates and registers one `CardPack`
+- **Prompt placeholders**: MUST use `%s` for blanks (e.g., `"I love %s."`), never use underscores `_`
+- **PromptCard format**: `&PromptCard{Prompt: `text with %s placeholders`}`
+- **ResponseCard format**: `ResponseCard{Text: `response text`}` (note: no `&` pointer)
+- **Prompts slice**: `[]*PromptCard` (pointer slice)
+- **Responses slice**: `[]ResponseCard` (value slice)
+- **Name field**: Short lowercase identifier matching filename (e.g., `"bluebox"`, `"main"`)
+- **Description field**: Human-readable pack description (e.g., `"Blue box expansion"`)
+
+Common mistakes to avoid:
+- Using `_` instead of `%s` for placeholders (breaks game logic)
+- Forgetting `&` before `PromptCard` (compilation error)
+- Adding `&` before `ResponseCard` (incorrect, should be value not pointer)
+- Mismatched Name field and filename (makes packs hard to find)
+- Multiple packs in one file (violates convention, use separate files)
+
 3) Developer workflows & run commands
 - Run the bot locally by setting the Discord token in `DG_TOKEN` and running the command in `cmd/cardsagainstdiscord`:
 
@@ -35,7 +54,38 @@ This repository implements a Discord Cards Against Humanity bot in Go. The notes
 - `deck_*.go` — examples of pack definitions and how placeholders are used.
 
 7) Small examples to copy-paste
-- Add a new pack: create `deck_myexpansion.go` with an `init()` that constructs a `CardPack` and calls `AddPack(pack)`. See `deck_bluebox.go` for format.
+
+Creating a new pack from scratch:
+```go
+package cardsagainstdiscord
+
+func init() {
+	pack := &CardPack{
+		Name:        "mypack",  // lowercase, matches filename
+		Description: "My Custom Pack",
+		Prompts: []*PromptCard{
+			&PromptCard{Prompt: `I love %s.`},
+			&PromptCard{Prompt: `%s and %s make a great combination.`},
+			&PromptCard{Prompt: `What's better than %s?`},
+		},
+		Responses: []ResponseCard{
+			ResponseCard{Text: `Puppies`},
+			ResponseCard{Text: `A warm hug`},
+			ResponseCard{Text: `Freshly baked cookies`},
+		},
+	}
+	AddPack(pack)
+}
+```
+
+Key points:
+- Save as `deck_mypack.go` in the repository root
+- Use `%s` for blanks, never `_`
+- PromptCard uses `&` (pointer), ResponseCard does not (value)
+- Call `AddPack(pack)` at the end of init()
+- The game engine automatically calculates `NumPick` based on `%s` count
+
+Testing a pack:
 - Create a test GameManager with a fake session: instantiate `NewGameManager(&StaticSessionProvider{Session: session})` and call `CreateGame(...)`.
 
 8) What to avoid

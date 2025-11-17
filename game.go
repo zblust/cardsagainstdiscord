@@ -479,7 +479,11 @@ func (g *Game) numUsersInGame() int {
 }
 
 func (g *Game) startRound() {
-	if g.numUsersInGame() < 2 {
+	minPlayers := 2
+	if g.VoteMode {
+		minPlayers = 1 // Allow solo play in vote mode for testing
+	}
+	if g.numUsersInGame() < minPlayers {
 		g.setState(GameStatePreGame)
 		g.sendAnnouncment("Not enough players...", false)
 		return
@@ -899,7 +903,9 @@ func (g *Game) HandleRectionAdd(ra *discordgo.MessageReactionAdd) {
 
 		if g.VoteMode {
 			targetPlayer := g.Responses[emojiIndex].Player
-			if targetPlayer.ID != player.ID && player.VotedFor == 0 {
+			// Allow self-voting only in solo play, otherwise prevent it
+			canVote := player.VotedFor == 0 && (targetPlayer.ID != player.ID || g.numUsersInGame() == 1)
+			if canVote {
 				player.VotedFor = targetPlayer.ID
 				targetPlayer.ReceivedVotes++
 			}

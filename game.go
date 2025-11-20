@@ -1332,8 +1332,9 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 		}
 	}
 
-	// When we already have a message, edit it instead of creating a new one
-	// This prevents message spam and preserves user reactions
+	// When we already have a message, edit it instead of creating a new one.
+	// This applies to both discard mode and after confirming a discard, preventing message spam
+	// and preserving user reactions (fixing the double-click bug when confirming redraw).
 	if p.LastReactionMenu != 0 {
 		_, err := session.ChannelMessageEditEmbed(p.Channel, p.LastReactionMenu, embed)
 		if err != nil {

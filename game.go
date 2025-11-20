@@ -510,7 +510,6 @@ func (g *Game) startRound() {
 		v.ReceivedVotes = 0
 		v.DiscardingCards = false
 		v.DiscardedCards = nil
-		v.LastReactionMenu = 0 // Reset to create new message for new round
 
 		if v.InGame {
 			v.Playing = true
@@ -1149,6 +1148,9 @@ func (g *Game) playerPickedResponseReaction(player *Player, ra *discordgo.Messag
 			}
 			player.DiscardingCards = true
 			player.DiscardedCards = nil
+			// Remove the user's reaction from the redraw emoji so they can react again to confirm
+			// This prevents Discord from treating the second click as an "unreact"
+			g.Session.MessageReactionRemove(player.Channel, player.LastReactionMenu, RedrawEmoji, player.ID)
 			player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
 		}
 		return
@@ -1332,10 +1334,9 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 		}
 	}
 
-	// When we already have a message, edit it instead of creating a new one.
-	// This applies to both discard mode and after confirming a discard, preventing message spam
-	// and preserving user reactions (fixing the double-click bug when confirming redraw).
-	if p.LastReactionMenu != 0 {
+	// When in discard mode and we already have a message, edit it instead of creating a new one
+	// This prevents message spam when selecting/deselecting cards during discard mode
+	if p.DiscardingCards && p.LastReactionMenu != 0 {
 		_, err := session.ChannelMessageEditEmbed(p.Channel, p.LastReactionMenu, embed)
 		if err != nil {
 			// If edit fails (message deleted, etc.), create a new message

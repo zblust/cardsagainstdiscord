@@ -1301,7 +1301,7 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 
 	title := fmt.Sprintf("Pick %d card(s)!", currentPrompt.NumPick)
 	if p.DiscardingCards {
-		title = "Select cards to discard, then react with 🔄 again to confirm"
+		title = fmt.Sprintf("Select cards to discard (%d selected), then react with 🔄 again to confirm", len(p.DiscardedCards))
 	}
 
 	embed := &discordgo.MessageEmbed{
@@ -1329,6 +1329,27 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 		embed.Footer = &discordgo.MessageEmbedFooter{
 			Text: "React with 🔄 to discard and redraw cards",
 		}
+	}
+
+	// When in discard mode and we already have a message, edit it instead of creating a new one
+	// This prevents message spam when selecting/deselecting cards during discard mode
+	if p.DiscardingCards && p.LastReactionMenu != 0 {
+		_, err := session.ChannelMessageEditEmbed(p.Channel, p.LastReactionMenu, embed)
+		if err != nil {
+			// If edit fails (message deleted, etc.), create a new message
+			resp, err := session.ChannelMessageSendEmbed(p.Channel, embed)
+			if err != nil {
+				return
+			}
+			p.LastReactionMenu = resp.ID
+			if currentCardCzar != p.ID {
+				for i, _ := range p.Cards {
+					session.MessageReactionAdd(p.Channel, resp.ID, CardSelectionEmojis[i])
+				}
+				session.MessageReactionAdd(p.Channel, resp.ID, RedrawEmoji)
+			}
+		}
+		return
 	}
 
 	resp, err := session.ChannelMessageSendEmbed(p.Channel, embed)

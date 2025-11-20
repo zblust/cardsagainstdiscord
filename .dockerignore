@@ -1,0 +1,35 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Environment
+.env
+.env.example
+
+# Documentation
+README.md
+*.md
+
+# Build artifacts
+cmd/cardsagainstdiscord/cardsagainstdiscord
+cmd/cardsagainstdiscord/cardsagainstdiscord.exe
+*.exe
+
+# IDE
+.vscode
+.idea
+
+# Validation scripts (not needed in container)
+*.ps1
+validate_cards_accurate.ps1
+create_missing_packs.ps1
+missing_cards_report.txt
+full_validation_results.txt
+
+# Data files (unless needed)
+cah-cards-full.json

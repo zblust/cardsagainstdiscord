@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  cah-bot:
+    build: .
+    image: cardsagainstdiscord:latest
+    container_name: cah-discord-bot
+    restart: unless-stopped
+    environment:
+      # Set your Discord bot token using docker run -e flag
+      # This file is just for reference when using docker-compose
+      - DG_TOKEN=${DG_TOKEN:-}
+    # Optional: Expose pprof port for debugging
+    # ports:
+    #   - "7447:7447"
+    # Optional: Mount volume for persistence if needed
+    # volumes:
+    #   - ./data:/app/data

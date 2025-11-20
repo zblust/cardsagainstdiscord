@@ -1150,7 +1150,9 @@ func (g *Game) playerPickedResponseReaction(player *Player, ra *discordgo.Messag
 			player.DiscardedCards = nil
 			// Remove the user's reaction from the redraw emoji so they can react again to confirm
 			// This prevents Discord from treating the second click as an "unreact"
-			g.Session.MessageReactionRemove(player.Channel, player.LastReactionMenu, RedrawEmoji, player.ID)
+			if player.LastReactionMenu != 0 {
+				g.Session.MessageReactionRemove(player.Channel, player.LastReactionMenu, RedrawEmoji, player.ID)
+			}
 			player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
 		}
 		return

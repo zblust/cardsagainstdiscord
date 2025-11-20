@@ -1332,6 +1332,7 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 	}
 
 	// When in discard mode and we already have a message, edit it instead of creating a new one
+	// This prevents message spam when selecting/deselecting cards during discard mode
 	if p.DiscardingCards && p.LastReactionMenu != 0 {
 		_, err := session.ChannelMessageEditEmbed(p.Channel, p.LastReactionMenu, embed)
 		if err != nil {

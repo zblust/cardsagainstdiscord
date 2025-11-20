@@ -67,6 +67,7 @@ var (
 	LeaveEmoji     = "➖"
 	PlayPauseEmoji = "⏯"
 	RedrawEmoji    = "🔄"
+	DoneEmoji      = "✅"
 )
 
 type Game struct {
@@ -1103,58 +1104,63 @@ func (g *Game) playerPickedResponseReaction(player *Player, ra *discordgo.Messag
 		return
 	}
 
-	// Handle redraw emoji
+	// Handle done emoji (confirm discard and redraw)
+	if ra.Emoji.Name == DoneEmoji {
+		if !player.DiscardingCards {
+			return
+		}
+
+		if len(player.DiscardedCards) == 0 {
+			player.DiscardingCards = false
+			go g.Session.ChannelMessageSendEmbed(player.Channel, &discordgo.MessageEmbed{
+				Description: "Discard cancelled - no cards selected",
+			})
+			player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
+			return
+		}
+
+		// Sort in descending order to remove from end first
+		sort.Slice(player.DiscardedCards, func(i, j int) bool {
+			return player.DiscardedCards[i] > player.DiscardedCards[j]
+		})
+
+		// Remove discarded cards and get new ones
+		numDiscarded := len(player.DiscardedCards)
+		for _, idx := range player.DiscardedCards {
+			player.Cards = append(player.Cards[:idx], player.Cards[idx+1:]...)
+		}
+
+		// Add new random cards
+		newCards := g.getRandomPlayerCards(numDiscarded)
+		player.Cards = append(player.Cards, newCards...)
+
+		player.DiscardingCards = false
+		player.DiscardedCards = nil
+
+		go g.Session.ChannelMessageSendEmbed(player.Channel, &discordgo.MessageEmbed{
+			Description: fmt.Sprintf("Discarded %d card(s) and drew %d new card(s)", numDiscarded, numDiscarded),
+		})
+		player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
+		return
+	}
+
+	// Handle redraw emoji (enter discard mode)
 	if ra.Emoji.Name == RedrawEmoji {
 		if player.DiscardingCards {
-			// Confirm discard and redraw
-			if len(player.DiscardedCards) == 0 {
-				player.DiscardingCards = false
-				go g.Session.ChannelMessageSendEmbed(player.Channel, &discordgo.MessageEmbed{
-					Description: "Discard cancelled - no cards selected",
-				})
-				player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
-				return
-			}
-
-			// Sort in descending order to remove from end first
-			sort.Slice(player.DiscardedCards, func(i, j int) bool {
-				return player.DiscardedCards[i] > player.DiscardedCards[j]
-			})
-
-			// Remove discarded cards and get new ones
-			numDiscarded := len(player.DiscardedCards)
-			for _, idx := range player.DiscardedCards {
-				player.Cards = append(player.Cards[:idx], player.Cards[idx+1:]...)
-			}
-
-			// Add new random cards
-			newCards := g.getRandomPlayerCards(numDiscarded)
-			player.Cards = append(player.Cards, newCards...)
-
-			player.DiscardingCards = false
-			player.DiscardedCards = nil
-
-			go g.Session.ChannelMessageSendEmbed(player.Channel, &discordgo.MessageEmbed{
-				Description: fmt.Sprintf("Discarded %d card(s) and drew %d new card(s)", numDiscarded, numDiscarded),
-			})
-			player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
-		} else {
-			// Enter discard mode
-			if len(player.SelectedCards) > 0 {
-				go g.Session.ChannelMessageSendEmbed(player.Channel, &discordgo.MessageEmbed{
-					Description: "You cannot discard cards after making selections for this round",
-				})
-				return
-			}
-			player.DiscardingCards = true
-			player.DiscardedCards = nil
-			// Remove the user's reaction from the redraw emoji so they can react again to confirm
-			// This prevents Discord from treating the second click as an "unreact"
-			if player.LastReactionMenu != 0 {
-				g.Session.MessageReactionRemove(player.Channel, player.LastReactionMenu, RedrawEmoji, player.ID)
-			}
-			player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
+			// Already in discard mode, ignore
+			return
 		}
+
+		// Enter discard mode
+		if len(player.SelectedCards) > 0 {
+			go g.Session.ChannelMessageSendEmbed(player.Channel, &discordgo.MessageEmbed{
+				Description: "You cannot discard cards after making selections for this round",
+			})
+			return
+		}
+		player.DiscardingCards = true
+		player.DiscardedCards = nil
+		player.PresentBoard(g.Session, g.CurrentPropmpt, g.CurrentCardCzar)
 		return
 	}
 
@@ -1306,7 +1312,7 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 
 	title := fmt.Sprintf("Pick %d card(s)!", currentPrompt.NumPick)
 	if p.DiscardingCards {
-		title = fmt.Sprintf("Select cards to discard (%d selected), then react with 🔄 again to confirm", len(p.DiscardedCards))
+		title = fmt.Sprintf("Select cards to discard (%d selected), then react with ✅ to confirm", len(p.DiscardedCards))
 	}
 
 	embed := &discordgo.MessageEmbed{
@@ -1351,7 +1357,7 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 				for i, _ := range p.Cards {
 					session.MessageReactionAdd(p.Channel, resp.ID, CardSelectionEmojis[i])
 				}
-				session.MessageReactionAdd(p.Channel, resp.ID, RedrawEmoji)
+				session.MessageReactionAdd(p.Channel, resp.ID, DoneEmoji)
 			}
 		}
 		return
@@ -1368,6 +1374,10 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 		for i, _ := range p.Cards {
 			session.MessageReactionAdd(p.Channel, resp.ID, CardSelectionEmojis[i])
 		}
-		session.MessageReactionAdd(p.Channel, resp.ID, RedrawEmoji)
+		if p.DiscardingCards {
+			session.MessageReactionAdd(p.Channel, resp.ID, DoneEmoji)
+		} else {
+			session.MessageReactionAdd(p.Channel, resp.ID, RedrawEmoji)
+		}
 	}
 }

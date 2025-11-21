@@ -1359,6 +1359,11 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 				}
 				session.MessageReactionAdd(p.Channel, resp.ID, DoneEmoji)
 			}
+		} else {
+			// Edit succeeded - add done emoji if not already present
+			if currentCardCzar != p.ID {
+				session.MessageReactionAdd(p.Channel, p.LastReactionMenu, DoneEmoji)
+			}
 		}
 		return
 	}

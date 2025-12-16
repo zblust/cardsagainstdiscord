@@ -14,6 +14,11 @@ Deck file format and conventions:
 - **Package**: All deck files are in the top-level `cardsagainstdiscord` package
 - **Structure**: Each file contains a single `init()` function that creates and registers one `CardPack`
 - **Prompt placeholders**: MUST use `%s` for blanks (e.g., `"I love %s."`), never use underscores `_`
+- **Same-card references**: Use `%0`, `%1`, etc. to reference previously-picked cards (e.g., `"You want %s? You can't handle %0!"` requires only 1 pick, with `%0` showing the first card again)
+  - `%0` references the first card, `%1` the second, etc.
+  - These references don't count toward `NumPick` - only `%s` placeholders do
+  - Players see `[FIRST CARD AGAIN]`, `[SECOND CARD AGAIN]`, etc. in the prompt
+  - Maximum of 10 position references supported (%0 through %9)
 - **PromptCard format**: `&PromptCard{Prompt: `text with %s placeholders`}`
 - **ResponseCard format**: `ResponseCard{Text: `response text`}` (note: no `&` pointer)
 - **Prompts slice**: `[]*PromptCard` (pointer slice)
@@ -23,6 +28,7 @@ Deck file format and conventions:
 
 Common mistakes to avoid:
 - Using `_` instead of `%s` for placeholders (breaks game logic)
+- Using `%s` when you mean to reference a previous card (use `%0`, `%1`, etc. instead)
 - Forgetting `&` before `PromptCard` (compilation error)
 - Adding `&` before `ResponseCard` (incorrect, should be value not pointer)
 - Mismatched Name field and filename (makes packs hard to find)
@@ -67,6 +73,8 @@ func init() {
 			&PromptCard{Prompt: `I love %s.`},
 			&PromptCard{Prompt: `%s and %s make a great combination.`},
 			&PromptCard{Prompt: `What's better than %s?`},
+			// Example using same-card reference:
+			&PromptCard{Prompt: `You want %s? You can't handle %0!`},  // Only 1 pick needed
 		},
 		Responses: []ResponseCard{
 			ResponseCard{Text: `Puppies`},
@@ -81,9 +89,10 @@ func init() {
 Key points:
 - Save as `deck_mypack.go` in the repository root
 - Use `%s` for blanks, never `_`
+- Use `%0`, `%1`, etc. to reference already-picked cards (they display as `[FIRST CARD AGAIN]`, `[SECOND CARD AGAIN]`, etc.)
 - PromptCard uses `&` (pointer), ResponseCard does not (value)
 - Call `AddPack(pack)` at the end of init()
-- The game engine automatically calculates `NumPick` based on `%s` count
+- The game engine automatically calculates `NumPick` based on `%s` count (position references don't count)
 
 Testing a pack:
 - Create a test GameManager with a fake session: instantiate `NewGameManager(&StaticSessionProvider{Session: session})` and call `CreateGame(...)`.

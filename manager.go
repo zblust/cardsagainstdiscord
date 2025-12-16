@@ -5,6 +5,70 @@ import (
 	"sync"
 )
 
+// ProcessPacks processes pack arguments and returns the final list of pack names
+// This is exposed for testing purposes
+func ProcessPacks(packs ...string) ([]string, error) {
+	allPacks := false
+	whitelist := make([]string, 0)
+	blacklist := make(map[string]bool)
+	
+	// First pass: identify all packs, whitelisted packs, and blacklisted packs
+	for _, v := range packs {
+		if v == "*" {
+			allPacks = true
+			continue
+		}
+		
+		// Check if this is a blacklist entry (starts with -)
+		if len(v) > 1 && v[0] == '-' {
+			packName := v[1:] // Remove the - prefix
+			_, ok := Packs[packName]
+			if !ok {
+				return nil, &ErrUnknownPack{
+					PassedPack: v,
+				}
+			}
+			blacklist[packName] = true
+		} else {
+			// Whitelist entry
+			_, ok := Packs[v]
+			if !ok {
+				return nil, &ErrUnknownPack{
+					PassedPack: v,
+				}
+			}
+			whitelist = append(whitelist, v)
+		}
+	}
+
+	// Determine final pack list
+	var resultPacks []string
+	if allPacks {
+		// Start with all packs, then remove blacklisted ones
+		resultPacks = make([]string, 0, len(Packs))
+		for k, _ := range Packs {
+			if !blacklist[k] {
+				resultPacks = append(resultPacks, k)
+			}
+		}
+	} else if len(whitelist) > 0 {
+		// Use whitelist (blacklist is ignored when not using *)
+		resultPacks = whitelist
+	} else if len(blacklist) > 0 {
+		// Only blacklist provided without *, treat as error
+		return nil, ErrNoPacks
+	} else {
+		// No packs specified
+		return nil, ErrNoPacks
+	}
+	
+	if len(resultPacks) < 1 {
+		return nil, ErrNoPacks
+	}
+	
+	return resultPacks, nil
+}
+
 type GameManager struct {
 	sync.RWMutex
 	SessionProvider SessionProvider
@@ -20,31 +84,13 @@ func NewGameManager(sessionProvider SessionProvider) *GameManager {
 }
 
 func (gm *GameManager) CreateGame(guildID int64, channelID int64, userID int64, username string, voteMode bool, packs ...string) (*Game, error) {
-	allPacks := false
-	for _, v := range packs {
-		if v == "*" {
-			allPacks = true
-			break
-		}
-
-		_, ok := Packs[v]
-		if !ok {
-			return nil, &ErrUnknownPack{
-				PassedPack: v,
-			}
-		}
+	// Process packs using the helper function
+	processedPacks, err := ProcessPacks(packs...)
+	if err != nil {
+		return nil, err
 	}
-
-	if len(packs) < 1 && !allPacks {
-		return nil, ErrNoPacks
-	}
-
-	if allPacks {
-		packs = make([]string, 0, len(Packs))
-		for k, _ := range Packs {
-			packs = append(packs, k)
-		}
-	}
+	
+	packs = processedPacks
 
 	gm.Lock()
 	defer gm.Unlock()
@@ -69,7 +115,7 @@ func (gm *GameManager) CreateGame(guildID int64, channelID int64, userID int64, 
 		Session:       gm.SessionProvider.SessionForGuild(guildID),
 	}
 
-	err := game.Created()
+	err = game.Created()
 	if err == nil {
 		game.AddPlayer(userID, username)
 

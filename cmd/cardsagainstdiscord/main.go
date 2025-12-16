@@ -70,11 +70,13 @@ var HelpCommand = &dcmd.SimpleCmd{
 			"➕ `!cah create [packs] [-v]` (aliases: `c`)\n" +
 			"   Creates a new game in the current channel\n" +
 			"   • `packs` - Space-separated pack names or `*` for all packs (default: `main`)\n" +
+			"   • Prefix pack names with `-` to exclude them (blacklist)\n" +
 			"   • `-v` - Enable vote mode (no card czar, everyone votes)\n" +
 			"   Examples:\n" +
 			"   • `!cah create` - Start with main pack\n" +
 			"   • `!cah create main bluebox -v` - Start with main and bluebox in vote mode\n" +
-			"   • `!cah c *` - Start with all packs\n\n" +
+			"   • `!cah c *` - Start with all packs\n" +
+			"   • `!cah c * -weed -trump` - Start with all packs except weed and trump\n\n" +
 			"➖ `!cah stop` (aliases: `end`, `s`)\n" +
 			"   Stops the game in the current channel (game master only)\n" +
 			"   Example: `!cah stop`\n\n" +
@@ -110,7 +112,7 @@ var HelpCommand = &dcmd.SimpleCmd{
 var CreateGameCommand = &dcmd.SimpleCmd{
 	ShortDesc: "Creates a cards against humanity game in this channel",
 	CmdArgDefs: []*dcmd.ArgDef{
-		&dcmd.ArgDef{Name: "packs", Type: dcmd.String, Default: "main", Help: "Packs seperated by space, or * to include all of them"},
+		&dcmd.ArgDef{Name: "packs", Type: dcmd.String, Default: "main", Help: "Packs seperated by space, or * to include all of them. Prefix with - to exclude (e.g., '* -weed -trump')"},
 	},
 	CmdSwitches: []*dcmd.ArgDef{
 		{Switch: "v", Name: "Vote mode, no cardczar"},

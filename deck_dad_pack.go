@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "dad-pack",
+		Name:        "dad",
 		Description: "Dad Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Coming up on Turner Classic Movies:\nSean Connery and Alec Baldwin star in "The Hunt for %s."`},

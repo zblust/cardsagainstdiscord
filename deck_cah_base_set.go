@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CAH Base Set",
+		Name:        "base-set",
 		Description: "CAH Base Set pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `%s + %s = Hipsters`},

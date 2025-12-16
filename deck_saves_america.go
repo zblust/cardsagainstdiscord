@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Cards Against Humanity Saves America Pack",
+		Name:        "cards-against-humanity-saves-america",
 		Description: "Cards Against Humanity Saves America Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `"They're bringing drugs. They're bringing crime. They're rapists. And some, I assume, are %s."`},

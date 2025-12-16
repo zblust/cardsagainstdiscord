@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Alcohol Pack",
+		Name:        "alcohol",
 		Description: "Alcohol and drinking themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `The best drink to order at a bar is %s.`},

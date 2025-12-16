@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CAH: Procedurally-Generated Cards",
+		Name:        "procedurally-generated-cards",
 		Description: "CAH: Procedurally-Generated Cards pack",
 		Prompts: []*PromptCard{
 		},

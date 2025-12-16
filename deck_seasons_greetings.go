@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Seasons Greetings Pack",
+		Name:        "seasons-greetings",
 		Description: "Seasons Greetings Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Blood is thicker than %s.`},

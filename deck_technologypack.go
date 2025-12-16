@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Technology Pack",
+		Name:        "technology",
 		Description: "Technology and innovation themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `The next big tech innovation will be %s.`},

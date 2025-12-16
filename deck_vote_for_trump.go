@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Vote For Trump Pack",
+		Name:        "vote-for-trump",
 		Description: "Vote For Trump Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `According to Arizona's stand-your-ground law, you're allowed to shoot someone if they're %s.`},

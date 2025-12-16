@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "2013-holiday-pack",
+		Name:        "2013-holiday",
 		Description: "2013 Holiday Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Because they are forbidden from masturbating, Mormons channel their repressed sexual energy into %s.`},

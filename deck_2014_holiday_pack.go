@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "2014-holiday-pack",
+		Name:        "2014-holiday",
 		Description: "2014 Holiday Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `A curse upon thee! Many years from now, just when you think you're safe, %s shall turn into %s.`},

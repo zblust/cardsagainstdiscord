@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Love Pack",
+		Name:        "love",
 		Description: "Love and romance themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `True love is %s.`},

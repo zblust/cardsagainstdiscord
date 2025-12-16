@@ -2,8 +2,8 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "PAX 2010 \"Oops\" Kit",
-		Description: "PAX 2010 \"Oops\" Kit pack",
+		Name:        "pax-2010-oops-kit",
+		Description: "PAX 2010 \"Oops\" Kit",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `%s: Has science gone too far?`},
 			&PromptCard{Prompt: `Daddy, why is Mommy crying?`},

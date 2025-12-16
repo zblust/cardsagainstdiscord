@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Reject Pack 2",
+		Name:        "reject-pack-2",
 		Description: "Reject Pack 2 pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `America is hungry. America needs %s.`},

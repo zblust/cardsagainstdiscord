@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "fantasy-pack",
+		Name:        "fantasy",
 		Description: "Fantasy Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `And in the end, the dragon was not evil; he just wanted %s.`},

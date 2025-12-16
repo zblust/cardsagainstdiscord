@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "World Wide Web Pack",
+		Name:        "world-wide-web",
 		Description: "World Wide Web Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Don't worry, Penny! Go Go Gadget %s!`},

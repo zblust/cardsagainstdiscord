@@ -2,8 +2,8 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "PAX Prime 2015 Food Pack A (Mango)",
-		Description: "PAX Prime 2015 Food Pack A (Mango) pack",
+		Name:        "pax-prime-2015-food-pack-a-mango",
+		Description: "PAX Prime 2015 Food Pack A (Mango)",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `I'm Bobby Flay, and if you can't stand %s, get out of the kitchen!`},
 			&PromptCard{Prompt: `It's not delivery.

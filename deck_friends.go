@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "F.R.I.E.N.D.S.",
+		Name:        "f.r.i.e.n.d.s.",
 		Description: "F.R.I.E.N.D.S. TV Show Themed",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `I like it. Whats not to like? %s? Good. %s? Good. %s? Good.`},

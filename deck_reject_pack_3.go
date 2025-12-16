@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Reject Pack 3",
+		Name:        "reject-pack-3",
 		Description: "Reject Pack 3 pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Bitch, you look nasty. You look disgusting. You look like you're %s. Go home, butch.`},

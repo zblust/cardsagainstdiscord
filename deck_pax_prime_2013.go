@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "PAX Prime 2013",
+		Name:        "pax-prime-2013",
 		Description: "PAX Prime 2013 pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `%s: Ain't nobody got time for that!`},

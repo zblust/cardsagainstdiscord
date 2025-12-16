@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "fascism-pack",
+		Name:        "fascism",
 		Description: "Fascism Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Before swallowing his pride and a cyanide pill, Adolf whispered to Eva, "Sorry about %s".`},

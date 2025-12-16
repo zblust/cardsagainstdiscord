@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "jack-white-show-pack",
+		Name:        "jack-white-show",
 		Description: "Jack White Show Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `When Jack White performed at the Aragon Ballroom in Chicago on Nov. 19, 2018, he surprised fans with %s.`},

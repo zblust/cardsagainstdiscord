@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "desert-bus-for-hope-pack",
+		Name:        "desert-bus-for-hope",
 		Description: "Desert Bus For Hope Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Desert Bus: %s for the children.`},

@@ -5,7 +5,7 @@ func init() {
 		Name:        "vote-for-hillary",
 		Description: "Vote For Hillary Pack pack",
 		Prompts: []*PromptCard{
-			&PromptCard{Prompt: `As repartations for slavery, all African Americans will receive %s.`},
+			&PromptCard{Prompt: `As reparations for slavery, all African Americans will receive %s.`},
 			&PromptCard{Prompt: `Senator, I trust you enjoyed %s last night.  Now, can I count on your vote?`},
 			&PromptCard{Prompt: `When you go to the polls on Tuesday, remember:  a vote for me is a vote for %s.`},
 		},

@@ -21,7 +21,7 @@ func init() {
 			&PromptCard{Prompt: `The Natural History Museum has just opened an interactive exhibit on %s.`},
 			&PromptCard{Prompt: `The theme for our senior prom will be %s.`},
 			&PromptCard{Prompt: `Today we honor St. Mungo, the patron saint of %s.`},
-			&PromptCard{Prompt: `What are the 3 secrets for a long and happy marriage?`},
+			&PromptCard{Prompt: `What are the 3 secrets for a long and happy marriage? %s, %s, & %s`},
 			&PromptCard{Prompt: `What did I bring back from Bali?`},
 			&PromptCard{Prompt: `What killed Mister Rogers?`},
 			&PromptCard{Prompt: `When I am Prime Minister of the United Kingdom, I will create the Ministry of %s.`},

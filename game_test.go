@@ -183,6 +183,36 @@ func TestSameCardAgainWithCardsMultiple(t *testing.T) {
 	}
 }
 
+func TestSameCardAgainMultipleOccurrences(t *testing.T) {
+	// Test a prompt with %0 appearing multiple times
+	prompt := &PromptCard{
+		Prompt:  "I love %s! %0 is the best! Give me more %0!",
+		NumPick: 1,
+	}
+
+	cards := []ResponseCard{"pizza"}
+	result := prompt.WithCards(cards)
+	expected := "I love **pizza**! **pizza** is the best! Give me more **pizza**!"
+	if result != expected {
+		t.Errorf("WithCards() = %q, expected %q", result, expected)
+	}
+}
+
+func TestSameCardAgainWithMultipleCards(t *testing.T) {
+	// Test a prompt with two picks and references to both
+	prompt := &PromptCard{
+		Prompt:  "First there was %s, then came %s, but I prefer %0 over %1.",
+		NumPick: 2,
+	}
+
+	cards := []ResponseCard{"fire", "ice"}
+	result := prompt.WithCards(cards)
+	expected := "First there was **fire**, then came **ice**, but I prefer **fire** over **ice**."
+	if result != expected {
+		t.Errorf("WithCards() = %q, expected %q", result, expected)
+	}
+}
+
 func TestSameCardAgainInPacks(t *testing.T) {
 	// Verify that the theatre pack prompt has correct NumPick
 	pack := Packs["theatre"]

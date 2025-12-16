@@ -72,10 +72,13 @@ func (p *PromptCard) WithCards(cards interface{}) string {
 	s := p.Prompt
 	for i := 0; i < p.NumPick && i < 10; i++ {
 		placeholder := fmt.Sprintf("%%%d", i)
-		if strings.Contains(s, placeholder) {
+		count := strings.Count(s, placeholder)
+		if count > 0 {
 			s = strings.Replace(s, placeholder, "%s", -1)
-			// Add the same card to args array for each reference
-			args = append(args, args[i])
+			// Add the same card to args array for each occurrence
+			for j := 0; j < count; j++ {
+				args = append(args, args[i])
+			}
 		}
 	}
 

@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "PAX Prime 2014 - Panel Cards",
+		Name:        "pax-prime-2014---panel-cards",
 		Description: "PAX Prime 2014 - Panel Cards pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Bob Ross's little-known first show was called "The Joy of %s."`},

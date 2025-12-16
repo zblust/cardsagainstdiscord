@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Animals Pack",
+		Name:        "animals-pack",
 		Description: "Animals and wildlife themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `If animals could talk, they would complain about %s.`},

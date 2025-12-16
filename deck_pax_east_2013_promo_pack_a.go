@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "PAX East 2013 Promo Pack A",
+		Name:        "pax-east-2013-promo-pack-a",
 		Description: "PAX East 2013 Promo Pack A pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `I have an idea even better than Kickstarter, and it's called %sstarter.`},

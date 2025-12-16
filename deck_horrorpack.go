@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Horror Pack",
+		Name:        "horror-pack",
 		Description: "Horror and scary themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `In a horror movie, %s always shows up at the worst time.`},

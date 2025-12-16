@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Sports Pack",
+		Name:        "sports-pack",
 		Description: "Sports and athletics themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `The championship game was decided by %s.`},

@@ -2,8 +2,8 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "house-of-cards-pack",
-		Description: "House of Cards Pack",
+		Name:        "house-of-cards-pack-2",
+		Description: "House of Cards Pack (2)",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `A wise man said, "Everything is about sex. Except sex. Sex is about %s."`},
 			&PromptCard{Prompt: `Because you enjoyed %s, we thought you'd like %s.`},

@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CAH: Main Deck",
+		Name:        "main-deck",
 		Description: "CAH: Main Deck pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Channel 4 presents "%s: the Story of %s."`},

@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CATS Musical Pack",
+		Name:        "cats-musical-pack",
 		Description: "Cards inspired by the musical CATS",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `CATS the musical is best described as %s.`},

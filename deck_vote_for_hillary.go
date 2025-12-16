@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Vote For Hillary Pack",
+		Name:        "vote-for-hillary-pack",
 		Description: "Vote For Hillary Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `As repartations for slavery, all African Americans will receive %s.`},

@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "cah-2000s-nostalgia-pack",
+		Name:        "2000s-nostalgia-pack",
 		Description: "CAH: 2000s Nostalgia Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `%s? That's a no from me, dawg.`},

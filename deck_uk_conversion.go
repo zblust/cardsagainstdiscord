@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CAH: UK Conversion Kit",
+		Name:        "uk-conversion-kit",
 		Description: "CAH: UK Conversion Kit pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `%s? Jim'll fix it!`},

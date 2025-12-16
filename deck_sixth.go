@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CAH: Sixth Expansion",
+		Name:        "sixth-expansion",
 		Description: "CAH: Sixth Expansion pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `"This workplace has been 0 days without %s."`},

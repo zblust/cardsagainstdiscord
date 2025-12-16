@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CAH: Fourth Expansion",
+		Name:        "fourth-expansion",
 		Description: "CAH: Fourth Expansion pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `%s melts in your mouth, not in your hand.`},

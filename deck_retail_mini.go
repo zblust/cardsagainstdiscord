@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Retail Mini Pack",
+		Name:        "retail-mini-pack",
 		Description: "Retail Mini Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `How are the writers of Cards Against Humanity spending your $25?`},

@@ -2,8 +2,8 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "pax-prime-2014-custom-printed-cards",
-		Description: "PAX Prime 2014 Custom Printed Cards",
+		Name:        "pax-prime-2014-custom-printed-cards-2",
+		Description: "PAX Prime 2014 Custom Printed Cards (2)",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `What's the weirdest thing that AdMagic has printed? %s`},
 		},

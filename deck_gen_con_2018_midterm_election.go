@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Gen Con 2018 Midterm Election Pack",
+		Name:        "gen-con-2018-midterm-election-pack",
 		Description: "Gen Con 2018 Midterm Election Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `If Mike Pence could dream, he would dream about %s.`},

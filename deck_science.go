@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Science Pack",
+		Name:        "science-pack",
 		Description: "Science Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `A study published in Nature this week found that %s is good for you in small doses.`},

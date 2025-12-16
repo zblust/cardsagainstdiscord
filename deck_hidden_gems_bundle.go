@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "cah-hidden-gems-bundle-a-few-new-cards-we-crammed-into-this-bundle-pack-amazon-exclusive",
+		Name:        "hidden-gems-bundle-a-few-new-cards-we-crammed-into-this-bundle-pack-amazon-exclusive",
 		Description: "CAH: Hidden Gems Bundle: A Few New Cards We Crammed Into This Bundle Pack (Amazon Exclusive)",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `HELP WANTED: Need assistance with %s. No experience necessary.`},

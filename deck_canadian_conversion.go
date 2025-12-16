@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "CAH: Canadian Conversion Kit",
+		Name:        "canadian-conversion-kit",
 		Description: "CAH: Canadian Conversion Kit pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Air Force fuckery is getting so bad that the brass are starting to blame %s on the lack of discipline.`},

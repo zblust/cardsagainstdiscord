@@ -2,7 +2,7 @@
 
 func init() {
 pack := &CardPack{
-Name:        "cah-fifth-expansion",
+Name:        "fifth-expansion",
 Description: "CAH: Fifth Expansion",
 Prompts: []*PromptCard{
 			&PromptCard{Prompt: `And what did you bring for show and tell?`},

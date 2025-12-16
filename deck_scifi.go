@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "Sci-Fi Pack",
+		Name:        "sci-fi-pack",
 		Description: "Sci-Fi Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Computer! Display %s on screen. Enhance.`},

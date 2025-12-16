@@ -8,7 +8,7 @@ func init() {
 			&PromptCard{Prompt: `Alright everybody, HOLD!
 Kelly, why is there %s on my stage?`},
 			&PromptCard{Prompt: `Comedy = Tragedy + %s.`},
-			&PromptCard{Prompt: `Let's take it from the top, and remember, you are %s. Show me  %s(SAME CARD AGAIN)%s.`},
+			&PromptCard{Prompt: `Let's take it from the top, and remember, you are %s. Show me %0.`},
 			&PromptCard{Prompt: `Match-maker,
 match-maker,
 make me a match.

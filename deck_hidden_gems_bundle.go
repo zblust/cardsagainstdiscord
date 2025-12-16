@@ -7,7 +7,7 @@ func init() {
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `HELP WANTED: Need assistance with %s. No experience necessary.`},
 			&PromptCard{Prompt: `Oh, whoops! These are not the right pants for %s.`},
-			&PromptCard{Prompt: `You want %s? You can't handle %s[SAME CARD AGAIN]%s!`},
+			&PromptCard{Prompt: `You want %s? You can't handle %0!`},
 		},
 		Responses: []ResponseCard{
 			`A juicy lil' booty going poot-poot-pooty.`,

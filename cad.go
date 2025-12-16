@@ -17,6 +17,8 @@ func AddPack(pack *CardPack) {
 			v.Prompt += " %s"
 			v.NumPick = 1
 		} else {
+			// %0, %1, etc. are references to already-picked cards, not new picks
+			// So we only count %s placeholders as actual picks needed
 			v.NumPick = numPicks
 		}
 	}
@@ -40,8 +42,19 @@ var (
 	EscaperReplacer = strings.NewReplacer("*", "\\*", "_", "\\_")
 )
 
+const (
+	maxCardReferences = 10 // Maximum number of card position references (e.g., %0 through %9)
+)
+
 func (p *PromptCard) PlaceHolder() string {
 	s := strings.Replace(p.Prompt, "%s", "_____", -1)
+	// Replace %0, %1, etc. with [FIRST CARD AGAIN], [SECOND CARD AGAIN], etc.
+	cardOrdinals := []string{"FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH", "EIGHTH", "NINTH", "TENTH"}
+	for i := 0; i < maxCardReferences && i < len(cardOrdinals); i++ {
+		placeholder := fmt.Sprintf("%%%d", i)
+		replacement := fmt.Sprintf("[%s CARD AGAIN]", cardOrdinals[i])
+		s = strings.Replace(s, placeholder, replacement, -1)
+	}
 	s = strings.Replace(s, "%%", `%`, -1)
 
 	s = EscaperReplacer.Replace(s)
@@ -62,7 +75,27 @@ func (p *PromptCard) WithCards(cards interface{}) string {
 		}
 	}
 
-	s := fmt.Sprintf(p.Prompt, args...)
+	// Replace %0, %1, etc. with %s and collect duplicates to append
+	// For example: "I love %s! %0 is great!" becomes "I love %s! %s is great!"
+	// We need args[0] twice: once for %s and once for %0
+	s := p.Prompt
+	duplicates := make([]interface{}, 0)
+	for i := 0; i < p.NumPick && i < maxCardReferences; i++ {
+		placeholder := fmt.Sprintf("%%%d", i)
+		count := strings.Count(s, placeholder)
+		if count > 0 {
+			s = strings.Replace(s, placeholder, "%s", -1)
+			// Each %0 reference needs a copy of args[i] for fmt.Sprintf
+			for j := 0; j < count; j++ {
+				duplicates = append(duplicates, args[i])
+			}
+		}
+	}
+
+	// Append all duplicates at once
+	args = append(args, duplicates...)
+
+	s = fmt.Sprintf(s, args...)
 	// s = EscaperReplacer.Replace(s)
 	return s
 }

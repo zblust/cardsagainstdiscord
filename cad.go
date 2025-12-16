@@ -48,9 +48,12 @@ const (
 
 func (p *PromptCard) PlaceHolder() string {
 	s := strings.Replace(p.Prompt, "%s", "_____", -1)
-	// Replace %0, %1, etc. with [SAME CARD AGAIN] to indicate card repetition
-	for i := 0; i < maxCardReferences; i++ {
-		s = strings.Replace(s, fmt.Sprintf("%%%d", i), "[SAME CARD AGAIN]", -1)
+	// Replace %0, %1, etc. with [FIRST CARD AGAIN], [SECOND CARD AGAIN], etc.
+	cardOrdinals := []string{"FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH", "EIGHTH", "NINTH", "TENTH"}
+	for i := 0; i < maxCardReferences && i < len(cardOrdinals); i++ {
+		placeholder := fmt.Sprintf("%%%d", i)
+		replacement := fmt.Sprintf("[%s CARD AGAIN]", cardOrdinals[i])
+		s = strings.Replace(s, placeholder, replacement, -1)
 	}
 	s = strings.Replace(s, "%%", `%`, -1)
 

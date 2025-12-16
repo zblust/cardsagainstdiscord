@@ -149,7 +149,7 @@ func TestSameCardAgainPlaceholder(t *testing.T) {
 	}
 
 	placeholder := prompt.PlaceHolder()
-	expected := "You want \\_\\_\\_\\_\\_? You can't handle [SAME CARD AGAIN]!"
+	expected := "You want \\_\\_\\_\\_\\_? You can't handle [FIRST CARD AGAIN]!"
 	if placeholder != expected {
 		t.Errorf("PlaceHolder() = %q, expected %q", placeholder, expected)
 	}
@@ -196,6 +196,13 @@ func TestSameCardAgainMultipleOccurrences(t *testing.T) {
 	if result != expected {
 		t.Errorf("WithCards() = %q, expected %q", result, expected)
 	}
+
+	// Test PlaceHolder shows [FIRST CARD AGAIN]
+	placeholder := prompt.PlaceHolder()
+	expectedPlaceholder := "I love \\_\\_\\_\\_\\_! [FIRST CARD AGAIN] is the best! Give me more [FIRST CARD AGAIN]!"
+	if placeholder != expectedPlaceholder {
+		t.Errorf("PlaceHolder() = %q, expected %q", placeholder, expectedPlaceholder)
+	}
 }
 
 func TestSameCardAgainWithMultipleCards(t *testing.T) {
@@ -210,6 +217,13 @@ func TestSameCardAgainWithMultipleCards(t *testing.T) {
 	expected := "First there was **fire**, then came **ice**, but I prefer **fire** over **ice**."
 	if result != expected {
 		t.Errorf("WithCards() = %q, expected %q", result, expected)
+	}
+
+	// Test PlaceHolder shows different labels for different positions
+	placeholder := prompt.PlaceHolder()
+	expectedPlaceholder := "First there was \\_\\_\\_\\_\\_, then came \\_\\_\\_\\_\\_, but I prefer [FIRST CARD AGAIN] over [SECOND CARD AGAIN]."
+	if placeholder != expectedPlaceholder {
+		t.Errorf("PlaceHolder() = %q, expected %q", placeholder, expectedPlaceholder)
 	}
 }
 

@@ -73,6 +73,8 @@ func (p *PromptCard) WithCards(cards interface{}) string {
 	}
 
 	// Replace %0, %1, etc. with %s and collect duplicates to append
+	// For example: "I love %s! %0 is great!" becomes "I love %s! %s is great!"
+	// We need args[0] twice: once for %s and once for %0
 	s := p.Prompt
 	duplicates := make([]interface{}, 0)
 	for i := 0; i < p.NumPick && i < maxCardReferences; i++ {
@@ -80,13 +82,13 @@ func (p *PromptCard) WithCards(cards interface{}) string {
 		count := strings.Count(s, placeholder)
 		if count > 0 {
 			s = strings.Replace(s, placeholder, "%s", -1)
-			// Collect the same card for each additional occurrence (first one is already in args)
+			// Each %0 reference needs a copy of args[i] for fmt.Sprintf
 			for j := 0; j < count; j++ {
 				duplicates = append(duplicates, args[i])
 			}
 		}
 	}
-	
+
 	// Append all duplicates at once
 	args = append(args, duplicates...)
 

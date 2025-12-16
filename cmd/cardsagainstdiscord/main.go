@@ -112,7 +112,7 @@ var HelpCommand = &dcmd.SimpleCmd{
 var CreateGameCommand = &dcmd.SimpleCmd{
 	ShortDesc: "Creates a cards against humanity game in this channel",
 	CmdArgDefs: []*dcmd.ArgDef{
-		&dcmd.ArgDef{Name: "packs", Type: dcmd.String, Default: "main", Help: "Packs seperated by space, or * to include all of them. Prefix with - to exclude (e.g., '* -weed -trump')"},
+		&dcmd.ArgDef{Name: "packs", Type: dcmd.String, Default: "main", Help: "Packs separated by space, or * to include all of them. Prefix with - to exclude (e.g., '* -weed -trump')"},
 	},
 	CmdSwitches: []*dcmd.ArgDef{
 		{Switch: "v", Name: "Vote mode, no cardczar"},

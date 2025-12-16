@@ -46,7 +46,7 @@ func ProcessPacks(packs ...string) ([]string, error) {
 	if allPacks {
 		// Start with all packs, then remove blacklisted ones
 		resultPacks = make([]string, 0, len(Packs))
-		for k, _ := range Packs {
+		for k := range Packs {
 			if !blacklist[k] {
 				resultPacks = append(resultPacks, k)
 			}

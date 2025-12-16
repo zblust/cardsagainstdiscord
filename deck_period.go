@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "period-pack",
+		Name:        "period",
 		Description: "Period Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Can a woman really have it all? A career and %s?`},

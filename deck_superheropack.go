@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "superhero-pack",
+		Name:        "superhero",
 		Description: "Superhero and comic book themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Every superhero's secret weakness is %s.`},

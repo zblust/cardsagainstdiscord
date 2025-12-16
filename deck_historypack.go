@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "history-pack",
+		Name:        "history",
 		Description: "History and historical events themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `The most significant moment in history was %s.`},

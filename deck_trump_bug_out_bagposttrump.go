@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "trump-bug-out-bag-post-trump-pack",
+		Name:        "trump-bug-out-bag-post-trump",
 		Description: "Trump Bug Out Bag/Post-Trump Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Donald Trump has nominated %s for his VP.`},

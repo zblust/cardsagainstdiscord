@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "college-pack",
+		Name:        "college",
 		Description: "CAH: College Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `All classes today are cancelled due to %s.`},

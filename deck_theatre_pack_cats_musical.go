@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "theatre-pack---cats-musical-pack",
+		Name:        "theatre-pack-cats-musical",
 		Description: "Theatre Pack - CATS Musical Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `%s! All alone in the moonlight!`},

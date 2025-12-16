@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "jew-pack-chosen-people-pack",
+		Name:        "jew-pack-chosen-people",
 		Description: "Jew Pack/Chosen People Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `According to Freud, all children progress through three stages of development: the oral stage, the anal stage, and the %s stage.`},

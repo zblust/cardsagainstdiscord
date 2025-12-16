@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "ass-pack",
+		Name:        "ass",
 		Description: "CAH: Ass Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `I like %s and I cannot lie!`},

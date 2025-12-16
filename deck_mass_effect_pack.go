@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "mass-effect-pack",
+		Name:        "mass-effect",
 		Description: "Mass Effect Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Coming this spring from BioWare, Mass Effect: %s.`},

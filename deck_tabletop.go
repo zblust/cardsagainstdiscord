@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "tabletop-pack",
+		Name:        "tabletop",
 		Description: "TableTop Pack pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Backers who supported Tabletop at the $25,000 level were astonished to receive %s from Wil Wheaton himself.`},

@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "travel-pack",
+		Name:        "travel",
 		Description: "Travel and exploration themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `The best vacation includes %s.`},

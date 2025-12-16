@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "human-pack",
+		Name:        "human",
 		Description: "CAH: Human Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Do not go gentle into that good night. Rage, rage against %s?`},

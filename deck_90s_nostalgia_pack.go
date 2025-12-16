@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "90s-nostalgia-pack",
+		Name:        "90s-nostalgia",
 		Description: "90s Nostalgia Pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `Believe it or not Jim Carrey can do a dead-on impression of %s.`},

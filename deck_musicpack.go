@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 func init() {
 	pack := &CardPack{
-		Name:        "music-pack",
+		Name:        "music",
 		Description: "Music and musicians themed card pack",
 		Prompts: []*PromptCard{
 			&PromptCard{Prompt: `The best song ever written was about %s.`},

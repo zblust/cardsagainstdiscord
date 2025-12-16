@@ -42,10 +42,14 @@ var (
 	EscaperReplacer = strings.NewReplacer("*", "\\*", "_", "\\_")
 )
 
+const (
+	maxCardReferences = 10 // Maximum number of card position references (e.g., %0 through %9)
+)
+
 func (p *PromptCard) PlaceHolder() string {
 	s := strings.Replace(p.Prompt, "%s", "_____", -1)
 	// Replace %0, %1, etc. with [SAME CARD AGAIN] to indicate card repetition
-	for i := 0; i < 10; i++ {
+	for i := 0; i < maxCardReferences; i++ {
 		s = strings.Replace(s, fmt.Sprintf("%%%d", i), "[SAME CARD AGAIN]", -1)
 	}
 	s = strings.Replace(s, "%%", `%`, -1)
@@ -70,7 +74,7 @@ func (p *PromptCard) WithCards(cards interface{}) string {
 
 	// First, replace %0, %1, etc. with the corresponding card from args
 	s := p.Prompt
-	for i := 0; i < p.NumPick && i < 10; i++ {
+	for i := 0; i < p.NumPick && i < maxCardReferences && i < len(args); i++ {
 		placeholder := fmt.Sprintf("%%%d", i)
 		count := strings.Count(s, placeholder)
 		if count > 0 {

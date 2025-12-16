@@ -268,3 +268,83 @@ func TestSameCardAgainInPacks(t *testing.T) {
 		t.Error("Hidden gems pack prompt with %0 reference not found")
 	}
 }
+
+func TestPackBlacklist(t *testing.T) {
+	// Test case 1: All packs except first and bluebox
+	selectedPacks, err := ProcessPacks("*", "-first", "-bluebox")
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	// Verify first and bluebox are not in the list
+	for _, pack := range selectedPacks {
+		if pack == "first" || pack == "bluebox" {
+			t.Errorf("Blacklisted pack %s should not be in selected packs", pack)
+		}
+	}
+
+	// Verify at least some packs are selected
+	if len(selectedPacks) < 1 {
+		t.Error("No packs selected when using blacklist")
+	}
+	
+	// Verify we have fewer packs than total (since we excluded 2)
+	if len(selectedPacks) >= len(Packs) {
+		t.Error("Should have fewer packs when using blacklist")
+	}
+
+	// Test case 2: Whitelist should still work
+	whitelistPacks, err := ProcessPacks("first", "third")
+	if err != nil {
+		t.Errorf("Unexpected error for whitelist: %v", err)
+	}
+
+	if len(whitelistPacks) != 2 {
+		t.Errorf("Expected 2 packs in whitelist, got %d", len(whitelistPacks))
+	}
+	
+	// Verify the packs are correct
+	packMap := make(map[string]bool)
+	for _, pack := range whitelistPacks {
+		packMap[pack] = true
+	}
+	if !packMap["first"] || !packMap["third"] {
+		t.Error("Whitelist should contain first and third")
+	}
+}
+
+func TestPackBlacklistUnknownPack(t *testing.T) {
+	// Test: Blacklist unknown pack should return error
+	_, err := ProcessPacks("*", "-unknownpack")
+	if err == nil {
+		t.Error("Expected error when blacklisting unknown pack")
+	}
+
+	// Verify it's the right error type
+	if _, ok := err.(*ErrUnknownPack); !ok {
+		t.Errorf("Expected ErrUnknownPack, got %T", err)
+	}
+}
+
+func TestPackBlacklistOnly(t *testing.T) {
+	// Test: Only blacklist without * should return error
+	_, err := ProcessPacks("-first", "-bluebox")
+	if err != ErrNoPacks {
+		t.Errorf("Expected ErrNoPacks when only blacklist is provided, got %v", err)
+	}
+}
+
+func TestPackAllBlacklisted(t *testing.T) {
+	// Get all pack names
+	allPackNames := make([]string, 0, len(Packs))
+	allPackNames = append(allPackNames, "*")
+	for k := range Packs {
+		allPackNames = append(allPackNames, "-"+k)
+	}
+
+	// Test: Blacklist all packs should return error
+	_, err := ProcessPacks(allPackNames...)
+	if err != ErrNoPacks {
+		t.Errorf("Expected ErrNoPacks when all packs are blacklisted, got %v", err)
+	}
+}

@@ -17,6 +17,8 @@ func AddPack(pack *CardPack) {
 			v.Prompt += " %s"
 			v.NumPick = 1
 		} else {
+			// %0, %1, etc. are references to already-picked cards, not new picks
+			// So we only count %s placeholders as actual picks needed
 			v.NumPick = numPicks
 		}
 	}
@@ -42,6 +44,10 @@ var (
 
 func (p *PromptCard) PlaceHolder() string {
 	s := strings.Replace(p.Prompt, "%s", "_____", -1)
+	// Replace %0, %1, etc. with [SAME CARD AGAIN] to indicate card repetition
+	for i := 0; i < 10; i++ {
+		s = strings.Replace(s, fmt.Sprintf("%%%d", i), "[SAME CARD AGAIN]", -1)
+	}
 	s = strings.Replace(s, "%%", `%`, -1)
 
 	s = EscaperReplacer.Replace(s)
@@ -62,7 +68,18 @@ func (p *PromptCard) WithCards(cards interface{}) string {
 		}
 	}
 
-	s := fmt.Sprintf(p.Prompt, args...)
+	// First, replace %0, %1, etc. with the corresponding card from args
+	s := p.Prompt
+	for i := 0; i < p.NumPick && i < 10; i++ {
+		placeholder := fmt.Sprintf("%%%d", i)
+		if strings.Contains(s, placeholder) {
+			s = strings.Replace(s, placeholder, "%s", -1)
+			// Add the same card to args array for each reference
+			args = append(args, args[i])
+		}
+	}
+
+	s = fmt.Sprintf(s, args...)
 	// s = EscaperReplacer.Replace(s)
 	return s
 }

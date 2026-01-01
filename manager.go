@@ -110,7 +110,7 @@ func (gm *GameManager) CreateGame(guildID int64, channelID int64, userID int64, 
 		Packs:         packs,
 		GameMaster:    userID,
 		VoteMode:      voteMode,
-		PlayerLimit:   10,
+		PlayerLimit:   20,
 		WinLimit:      10,
 		Session:       gm.SessionProvider.SessionForGuild(guildID),
 	}

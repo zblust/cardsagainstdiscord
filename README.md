@@ -4,6 +4,36 @@ A discord bot for cards against humanity, and unlike other cah bots, you dont ty
 
 Pretty functional, some bugs may be around.
 
+## Features
+
+- **Dual Command System**: Supports both modern slash commands (`/cah`) and traditional prefix commands (`!cah`)
+- **Easy Command Discovery**: Slash commands appear in Discord's UI for easy discoverability
+- **Backward Compatible**: Existing bots continue to work with prefix commands
+
+## Using the Bot
+
+### Slash Commands (Recommended)
+
+The bot supports Discord's native slash commands for better discoverability:
+
+- `/cah help` - Shows help for all commands
+- `/cah create [packs] [vote-mode]` - Creates a new game
+- `/cah stop` - Stops the current game (game master only)
+- `/cah kick <user>` - Kicks a player (game master only)
+- `/cah packs` - Lists all available card packs
+
+### Prefix Commands (Legacy)
+
+Traditional prefix commands are still supported for backward compatibility:
+
+- `!cah help` - Shows help for all commands
+- `!cah create [packs] [-v]` - Creates a new game
+- `!cah stop` - Stops the current game
+- `!cah kick <user>` - Kicks a player
+- `!cah packs` - Lists all available packs
+
+## Installation
+
 To compile and run the standalone bot: (assuming you have go and git installed)
 
 ```
@@ -11,6 +41,17 @@ go get github.com/jonas747/cardsagainstdiscord/cmd/cardsagainstdiscord
 cd $GOPATH/bin
 # The executable now lies here, set DG_TOKEN to your token prefixed with "Bot " and run it
 ```
+
+Or build from source:
+
+```bash
+git clone https://github.com/jonas747/cardsagainstdiscord
+cd cardsagainstdiscord
+go build ./cmd/cardsagainstdiscord
+DG_TOKEN="Bot YOUR_TOKEN_HERE" ./cardsagainstdiscord
+```
+
+**Note**: When the bot starts, it will register slash commands with Discord. Global slash commands can take up to an hour to propagate, but they work immediately in servers where the bot has been manually added.
 
 ## Creating Custom Card Packs
 

@@ -8,6 +8,7 @@ import (
 	"sort"
 	"strings"
 
+	bwdiscordgo "github.com/bwmarrin/discordgo"
 	"github.com/jonas747/cardsagainstdiscord"
 	"github.com/jonas747/dcmd"
 	"github.com/jonas747/discordgo"
@@ -55,7 +56,29 @@ func main() {
 
 	err = session.Open()
 	panicErr(err, "Failed opening gateway connection")
-	log.Println("Running...")
+	log.Println("Running with prefix commands (!cah)...")
+
+	// Create a second session for slash commands using the newer discordgo library
+	slashSession, err := bwdiscordgo.New(os.Getenv("DG_TOKEN"))
+	if err != nil {
+		log.Printf("Warning: Failed to create slash command session: %v. Slash commands will not be available.", err)
+	} else {
+		// Add slash command handler
+		slashSession.AddHandler(HandleInteractionCreate)
+
+		err = slashSession.Open()
+		if err != nil {
+			log.Printf("Warning: Failed to open slash command session: %v. Slash commands will not be available.", err)
+		} else {
+			// Register slash commands (this might take up to an hour to propagate globally)
+			err = RegisterSlashCommands(slashSession)
+			if err != nil {
+				log.Printf("Warning: Failed to register slash commands: %v. Slash commands may not work.", err)
+			} else {
+				log.Println("Slash commands registered successfully! (/cah)")
+			}
+		}
+	}
 
 	// We import http/pprof above to be ale to inspect shizz and do profiling
 	go http.ListenAndServe(":7447", nil)

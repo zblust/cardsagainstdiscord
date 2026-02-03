@@ -1,7 +1,7 @@
 package cardsagainstdiscord
 
 import (
-	"github.com/jonas747/discordgo"
+	"github.com/bwmarrin/discordgo"
 	"sync"
 )
 
@@ -72,18 +72,18 @@ func ProcessPacks(packs ...string) ([]string, error) {
 type GameManager struct {
 	sync.RWMutex
 	SessionProvider SessionProvider
-	ActiveGames     map[int64]*Game
+	ActiveGames     map[string]*Game
 	NumActiveGames  int
 }
 
 func NewGameManager(sessionProvider SessionProvider) *GameManager {
 	return &GameManager{
-		ActiveGames:     make(map[int64]*Game),
+		ActiveGames:     make(map[string]*Game),
 		SessionProvider: sessionProvider,
 	}
 }
 
-func (gm *GameManager) CreateGame(guildID int64, channelID int64, userID int64, username string, voteMode bool, packs ...string) (*Game, error) {
+func (gm *GameManager) CreateGame(guildID string, channelID string, userID string, username string, voteMode bool, packs ...string) (*Game, error) {
 	// Process packs using the helper function
 	processedPacks, err := ProcessPacks(packs...)
 	if err != nil {
@@ -127,7 +127,7 @@ func (gm *GameManager) CreateGame(guildID int64, channelID int64, userID int64, 
 	return game, err
 }
 
-func (gm *GameManager) FindGameFromChannelOrUser(id int64) *Game {
+func (gm *GameManager) FindGameFromChannelOrUser(id string) *Game {
 	gm.RLock()
 	defer gm.RUnlock()
 
@@ -138,7 +138,7 @@ func (gm *GameManager) FindGameFromChannelOrUser(id int64) *Game {
 	return nil
 }
 
-func (gm *GameManager) PlayerTryJoinGame(gameID, playerID int64, username string) error {
+func (gm *GameManager) PlayerTryJoinGame(gameID, playerID string, username string) error {
 	gm.Lock()
 	defer gm.Unlock()
 
@@ -158,7 +158,7 @@ func (gm *GameManager) PlayerTryJoinGame(gameID, playerID int64, username string
 	return ErrGameNotFound
 }
 
-func (gm *GameManager) PlayerTryLeaveGame(playerID int64) error {
+func (gm *GameManager) PlayerTryLeaveGame(playerID string) error {
 	gm.Lock()
 	defer gm.Unlock()
 
@@ -171,7 +171,7 @@ func (gm *GameManager) PlayerTryLeaveGame(playerID int64) error {
 	return ErrGameNotFound
 }
 
-func (gm *GameManager) AdminKickUser(admin, playerID int64) error {
+func (gm *GameManager) AdminKickUser(admin, playerID string) error {
 	gm.Lock()
 	defer gm.Unlock()
 
@@ -196,7 +196,7 @@ func (gm *GameManager) AdminKickUser(admin, playerID int64) error {
 	return nil
 }
 
-func (gm *GameManager) RemoveGame(gameID int64) error {
+func (gm *GameManager) RemoveGame(gameID string) error {
 	gm.Lock()
 	defer gm.Unlock()
 
@@ -224,7 +224,7 @@ func (gm *GameManager) RemoveGame(gameID int64) error {
 	return nil
 }
 
-func (gm *GameManager) TryAdminRemoveGame(admin int64) error {
+func (gm *GameManager) TryAdminRemoveGame(admin string) error {
 	gm.Lock()
 	defer gm.Unlock()
 

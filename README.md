@@ -6,31 +6,21 @@ Pretty functional, some bugs may be around.
 
 ## Features
 
-- **Dual Command System**: Supports both modern slash commands (`/cah`) and traditional prefix commands (`!cah`)
-- **Easy Command Discovery**: Slash commands appear in Discord's UI for easy discoverability
-- **Backward Compatible**: Existing bots continue to work with prefix commands
+- **Modern Slash Commands**: Uses Discord's native slash commands (`/cah`) for easy discoverability
+- **Single Dependency**: Built with the official bwmarrin/discordgo library
+- **Reaction-Based Gameplay**: Use emoji reactions to join, play, and interact with the game
 
 ## Using the Bot
 
-### Slash Commands (Recommended)
+### Slash Commands
 
-The bot supports Discord's native slash commands for better discoverability:
+The bot uses Discord's native slash commands:
 
 - `/cah help` - Shows help for all commands
 - `/cah create [packs] [vote-mode]` - Creates a new game
 - `/cah stop` - Stops the current game (game master only)
 - `/cah kick <user>` - Kicks a player (game master only)
 - `/cah packs` - Lists all available card packs
-
-### Prefix Commands (Legacy)
-
-Traditional prefix commands are still supported for backward compatibility:
-
-- `!cah help` - Shows help for all commands
-- `!cah create [packs] [-v]` - Creates a new game
-- `!cah stop` - Stops the current game
-- `!cah kick <user>` - Kicks a player
-- `!cah packs` - Lists all available packs
 
 ## Installation
 

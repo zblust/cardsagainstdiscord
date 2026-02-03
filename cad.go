@@ -2,7 +2,7 @@ package cardsagainstdiscord
 
 import (
 	"fmt"
-	"github.com/jonas747/discordgo"
+	"github.com/bwmarrin/discordgo"
 	"github.com/pkg/errors"
 	"strings"
 )
@@ -103,14 +103,14 @@ func (p *PromptCard) WithCards(cards interface{}) string {
 type ResponseCard string
 
 type SessionProvider interface {
-	SessionForGuild(guildID int64) *discordgo.Session
+	SessionForGuild(guildID string) *discordgo.Session
 }
 
 type StaticSessionProvider struct {
 	Session *discordgo.Session
 }
 
-func (sp *StaticSessionProvider) SessionForGuild(guildID int64) *discordgo.Session {
+func (sp *StaticSessionProvider) SessionForGuild(guildID string) *discordgo.Session {
 	return sp.Session
 }
 

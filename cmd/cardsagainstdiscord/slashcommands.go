@@ -178,13 +178,10 @@ func handleCreateCommand(s *discordgo.Session, i *discordgo.InteractionCreate, o
 
 	packs := strings.Fields(packsStr)
 
-	// Convert IDs from string to int64
-	channelID := stringToInt64(i.ChannelID)
-	guildID := stringToInt64(i.GuildID)
-	userID := stringToInt64(i.Member.User.ID)
+	// IDs are already strings - no conversion needed!
 	username := i.Member.User.Username
 
-	_, err := cahManager.CreateGame(guildID, channelID, userID, username, voteMode, packs...)
+	_, err := cahManager.CreateGame(i.GuildID, i.ChannelID, i.Member.User.ID, username, voteMode, packs...)
 	if err != nil {
 		if cahErr := cardsagainstdiscord.HumanizeError(err); cahErr != "" {
 			respond(s, i, cahErr)
@@ -200,7 +197,7 @@ func handleCreateCommand(s *discordgo.Session, i *discordgo.InteractionCreate, o
 }
 
 func handleStopCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
-	userID := stringToInt64(i.Member.User.ID)
+	userID := i.Member.User.ID
 
 	err := cahManager.TryAdminRemoveGame(userID)
 	if err != nil {
@@ -222,8 +219,8 @@ func handleKickCommand(s *discordgo.Session, i *discordgo.InteractionCreate, opt
 		return
 	}
 
-	targetUserID := stringToInt64(options[0].UserValue(s).ID)
-	adminID := stringToInt64(i.Member.User.ID)
+	targetUserID := options[0].UserValue(s).ID
+	adminID := i.Member.User.ID
 
 	err := cahManager.AdminKickUser(adminID, targetUserID)
 	if err != nil {
@@ -282,11 +279,4 @@ func respondError(s *discordgo.Session, i *discordgo.InteractionCreate, message 
 	if err != nil {
 		log.Printf("Error responding to interaction: %v", err)
 	}
-}
-
-// stringToInt64 converts a Discord snowflake ID string to int64
-func stringToInt64(s string) int64 {
-	var id int64
-	fmt.Sscanf(s, "%d", &id)
-	return id
 }

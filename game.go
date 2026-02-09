@@ -11,7 +11,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/jonas747/discordgo"
+	"github.com/bwmarrin/discordgo"
 )
 
 type GameState int
@@ -77,15 +77,15 @@ type Game struct {
 	Session *discordgo.Session `json:"-" msgpack:"-"`
 
 	// The main channel this game resides in, never changes
-	MasterChannel int64
+	MasterChannel string
 	// The server the game resides in, never changes
-	GuildID int64
+	GuildID string
 
 	// The user that created this game
-	GameMaster int64
+	GameMaster string
 
 	// The current cardzar
-	CurrentCardCzar int64
+	CurrentCardCzar string
 
 	PlayerLimit        int
 	WinLimit           int
@@ -104,7 +104,7 @@ type Game struct {
 
 	CurrentPropmpt *PromptCard
 
-	LastMenuMessage int64
+	LastMenuMessage string
 
 	Responses []*PickedResonse
 
@@ -159,14 +159,14 @@ func (g *Game) loadPackPrompts() {
 }
 
 // AddPlayer attempts to add a player to the game, if it fails (hit the limit for example) then it returns false
-func (g *Game) AddPlayer(id int64, username string) bool {
+func (g *Game) AddPlayer(id string, username string) bool {
 	g.Lock()
 	defer g.Unlock()
 
 	return g.addPlayer(id, username)
 }
 
-func (g *Game) addPlayer(id int64, username string) bool {
+func (g *Game) addPlayer(id string, username string) bool {
 	// 500 is max capacity
 	if 500 <= len(g.Players) {
 		return false
@@ -215,11 +215,11 @@ func (g *Game) addPlayer(id int64, username string) bool {
 		msg = "Joined the game!"
 	}
 
-	go g.sendAnnouncment(fmt.Sprintf("<@%d> %s! (%d/%d)", id, msg, numPlaying+1, g.PlayerLimit), false)
+	go g.sendAnnouncment(fmt.Sprintf("<@%s> %s! (%d/%d)", id, msg, numPlaying+1, g.PlayerLimit), false)
 	return true
 }
 
-func (g *Game) findPlayer(id int64) *Player {
+func (g *Game) findPlayer(id string) *Player {
 	for _, v := range g.Players {
 		if v.ID == id {
 			return v
@@ -229,13 +229,13 @@ func (g *Game) findPlayer(id int64) *Player {
 	return nil
 }
 
-func (g *Game) RemovePlayer(id int64) bool {
+func (g *Game) RemovePlayer(id string) bool {
 	g.Lock()
 	defer g.Unlock()
 	return g.removePlayer(id)
 }
 
-func (g *Game) removePlayer(id int64) bool {
+func (g *Game) removePlayer(id string) bool {
 	found := false
 	numPlaying := 0
 	for i, v := range g.Players {
@@ -265,7 +265,7 @@ func (g *Game) removePlayer(id int64) bool {
 		return false
 	}
 
-	go g.sendAnnouncment(fmt.Sprintf("<@%d> Left the game (%d/%d)", id, numPlaying, g.PlayerLimit), false)
+	go g.sendAnnouncment(fmt.Sprintf("<@%s> Left the game (%d/%d)", id, numPlaying, g.PlayerLimit), false)
 
 	if g.CurrentCardCzar == id && g.State != GameStatePreGame && g.State != GameStatePreRoundDelay {
 		g.nextRound()
@@ -275,7 +275,7 @@ func (g *Game) removePlayer(id int64) bool {
 		for _, v := range g.Players {
 			if v.InGame {
 				g.GameMaster = v.ID
-				go g.sendAnnouncment(fmt.Sprintf("GameMaster left, assigned <@%d> as new game master.", v.ID), false)
+				go g.sendAnnouncment(fmt.Sprintf("GameMaster left, assigned <@%s> as new game master.", v.ID), false)
 				break
 			}
 		}
@@ -333,7 +333,7 @@ func (g *Game) sendAnnouncment(msg string, allPlayers bool) {
 	if allPlayers {
 		for _, v := range g.Players {
 			if v.InGame {
-				go func(channel int64) {
+				go func(channel string) {
 					g.Session.ChannelMessageSendEmbed(channel, embed)
 				}(v.Channel)
 			}
@@ -456,7 +456,7 @@ func (g *Game) Tick() {
 
 		if time.Since(g.StateEntered) >= PickWinnerDuration {
 			for _, v := range g.Players {
-				if v.VotedFor != 0 {
+				if v.VotedFor != "" {
 					g.allVoted()
 					break
 				}
@@ -507,7 +507,7 @@ func (g *Game) startRound() {
 	for _, v := range g.Players {
 		v.SelectedCards = nil
 		v.sent15sWarning = false
-		v.VotedFor = 0
+		v.VotedFor = ""
 		v.ReceivedVotes = 0
 		v.DiscardingCards = false
 		v.DiscardedCards = nil
@@ -540,24 +540,24 @@ func (g *Game) startRound() {
 
 }
 
-func NextCardCzar(players []*Player, current int64) int64 {
-	var next int64
-	var lowest int64
+func NextCardCzar(players []*Player, current string) string {
+	var next string
+	var lowest string
 	for _, v := range players {
 		if v.ID == current || !v.PlayingThisRound() {
 			continue
 		}
 
-		if v.ID > current && (v.ID < next || next == 0) {
+		if v.ID > current && (v.ID < next || next == "") {
 			next = v.ID
 		}
 
-		if lowest == 0 || v.ID < lowest {
+		if lowest == "" || v.ID < lowest {
 			lowest = v.ID
 		}
 	}
 
-	if next == 0 {
+	if next == "" {
 		next = lowest
 	}
 
@@ -625,7 +625,7 @@ func (g *Game) presentStartRound() {
 	if !g.VoteMode {
 		fields = append(fields, &discordgo.MessageEmbedField{
 			Name:  "CardCzar",
-			Value: fmt.Sprintf("<@%d>", g.CurrentCardCzar),
+			Value: fmt.Sprintf("<@%s>", g.CurrentCardCzar),
 		})
 	}
 
@@ -656,7 +656,7 @@ func (g *Game) donePickingResponses() {
 		}
 
 		if len(v.SelectedCards) < g.CurrentPropmpt.NumPick {
-			go g.Session.ChannelMessageSend(v.Channel, fmt.Sprintf("You didn't respond in time... winner is being picked in <#%d>", g.MasterChannel))
+			go g.Session.ChannelMessageSend(v.Channel, fmt.Sprintf("You didn't respond in time... winner is being picked in <#%s>", g.MasterChannel))
 			v.SelectedCards = nil
 			continue
 		}
@@ -691,7 +691,7 @@ func (g *Game) presentPickedResponseCards(edit bool) {
 	if g.VoteMode {
 		desc += "you will now all vote on the best one, you cannot vote on your own selection."
 	} else {
-		desc += fmt.Sprintf("pick the best one(s) <@%d>!", g.CurrentCardCzar)
+		desc += fmt.Sprintf("pick the best one(s) <@%s>!", g.CurrentCardCzar)
 	}
 
 	secondsLeft := int((PickWinnerDuration - time.Since(g.StateEntered)).Seconds())
@@ -744,11 +744,11 @@ func (g *Game) presentPickedResponseCards(edit bool) {
 		}
 
 		for _, v := range g.Players {
-			if v.PlayingThisRound() && v.VotedFor == 0 {
+			if v.PlayingThisRound() && v.VotedFor == "" {
 				if remainingPlayersField.Value != "" {
 					remainingPlayersField.Value += ", "
 				}
-				remainingPlayersField.Value += "<@" + discordgo.StrID(v.ID) + ">"
+				remainingPlayersField.Value += "<@" + v.ID + ">"
 			}
 		}
 
@@ -784,7 +784,7 @@ func (g *Game) pickWinnerExpired() {
 	if g.VoteMode {
 		content = fmt.Sprintf("no one voted for anyone in %d seconds, skipping round...", int(PickWinnerDuration.Seconds()))
 	} else {
-		content = fmt.Sprintf("<@%d> didn't pick a winner in %d seconds, skipping round...", g.CurrentCardCzar, int(PickWinnerDuration.Seconds()))
+		content = fmt.Sprintf("<@%s> didn't pick a winner in %d seconds, skipping round...", g.CurrentCardCzar, int(PickWinnerDuration.Seconds()))
 	}
 
 	msg, err := g.Session.ChannelMessageSend(g.MasterChannel, content)
@@ -801,7 +801,7 @@ func (g *Game) gameExpired() {
 	g.stop()
 }
 
-func (g *Game) addCommonMenuReactions(mID int64) {
+func (g *Game) addCommonMenuReactions(mID string) {
 	g.Session.MessageReactionAdd(g.MasterChannel, mID, JoinEmoji)
 	g.Session.MessageReactionAdd(g.MasterChannel, mID, LeaveEmoji)
 	g.Session.MessageReactionAdd(g.MasterChannel, mID, PlayPauseEmoji)
@@ -905,7 +905,7 @@ func (g *Game) HandleRectionAdd(ra *discordgo.MessageReactionAdd) {
 		if g.VoteMode {
 			targetPlayer := g.Responses[emojiIndex].Player
 			// Allow self-voting only in solo play, otherwise prevent it
-			canVote := player.VotedFor == 0 && (targetPlayer.ID != player.ID || g.numUsersInGame() == 1)
+			canVote := player.VotedFor == "" && (targetPlayer.ID != player.ID || g.numUsersInGame() == 1)
 			if canVote {
 				player.VotedFor = targetPlayer.ID
 				targetPlayer.ReceivedVotes++
@@ -916,7 +916,7 @@ func (g *Game) HandleRectionAdd(ra *discordgo.MessageReactionAdd) {
 			g.presentPickedResponseCards(true)
 			for _, v := range g.Players {
 				if v.PlayingThisRound() {
-					if v.VotedFor == 0 {
+					if v.VotedFor == "" {
 						return
 					}
 				}
@@ -965,7 +965,7 @@ func (g *Game) HandleMessageCreate(msg *discordgo.MessageCreate) {
 			if len(player.SelectedCards) < g.CurrentPropmpt.NumPick {
 				msg += fmt.Sprintf("select %d more card(s)", g.CurrentPropmpt.NumPick-len(player.SelectedCards))
 			} else {
-				msg += fmt.Sprintf("go to <#%d> and wait for the other players to finish their selections, the winner will be picked there", g.MasterChannel)
+				msg += fmt.Sprintf("go to <#%s> and wait for the other players to finish their selections, the winner will be picked there", g.MasterChannel)
 			}
 
 			go g.Session.ChannelMessageSendEmbed(player.Channel, &discordgo.MessageEmbed{
@@ -1229,7 +1229,7 @@ func (g *Game) playerPickedResponseReaction(player *Player, ra *discordgo.Messag
 		} else {
 			respMsg = fmt.Sprintf("Selected **%s**", card)
 			if len(player.SelectedCards) >= g.CurrentPropmpt.NumPick {
-				respMsg += fmt.Sprintf(", go to <#%d> and wait for the other players to finish their selections, the winner will be picked there", g.MasterChannel)
+				respMsg += fmt.Sprintf(", go to <#%s> and wait for the other players to finish their selections, the winner will be picked there", g.MasterChannel)
 			} else {
 				respMsg += fmt.Sprintf(", select %d more cards", g.CurrentPropmpt.NumPick-len(player.SelectedCards))
 			}
@@ -1264,16 +1264,16 @@ func (g *Game) loadFromSerializedState() {
 }
 
 type Player struct {
-	ID              int64
+	ID              string
 	Username        string
 	Cards           []ResponseCard
 	SelectedCards   []int
 	Wins            int
 	FilingBlankCard bool
-	VotedFor        int64
+	VotedFor        string
 	ReceivedVotes   int
 
-	Channel int64
+	Channel string
 
 	// Wether this user is playing this round, if the user joined in the middle of a round this will be false
 	Playing bool
@@ -1282,7 +1282,7 @@ type Player struct {
 
 	sent15sWarning bool
 
-	LastReactionMenu int64
+	LastReactionMenu string
 
 	// Card discard/redraw feature
 	DiscardingCards bool
@@ -1305,7 +1305,7 @@ func (p *Player) MadeSelections(currentPrompt *PromptCard) bool {
 	return true
 }
 
-func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptCard, currentCardCzar int64) {
+func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptCard, currentCardCzar string) {
 	if currentCardCzar == p.ID {
 		return
 	}
@@ -1344,7 +1344,7 @@ func (p *Player) PresentBoard(session *discordgo.Session, currentPrompt *PromptC
 
 	// When in discard mode and we already have a message, edit it instead of creating a new one
 	// This prevents message spam when selecting/deselecting cards during discard mode
-	if p.DiscardingCards && p.LastReactionMenu != 0 {
+	if p.DiscardingCards && p.LastReactionMenu != "" {
 		_, err := session.ChannelMessageEditEmbed(p.Channel, p.LastReactionMenu, embed)
 		if err != nil {
 			// If edit fails (message deleted, etc.), create a new message

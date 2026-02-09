@@ -6,91 +6,91 @@ import (
 
 func TestNextCardCzar(t *testing.T) {
 	players := []*Player{
-		{ID: 1, Playing: true, InGame: true},
-		{ID: 5, Playing: true, InGame: true},
-		{ID: 2, Playing: true, InGame: true},
+		{ID: "100000000000000001", Playing: true, InGame: true},
+		{ID: "100000000000000005", Playing: true, InGame: true},
+		{ID: "100000000000000002", Playing: true, InGame: true},
 	}
 
-	current := NextCardCzar(players, 0)
-	if current != 1 {
-		t.Error("Got ", current, " exected 1")
-	}
-
-	current = NextCardCzar(players, current)
-	if current != 2 {
-		t.Error("Got ", current, " exected 2")
+	current := NextCardCzar(players, "")
+	if current != "100000000000000001" {
+		t.Error("Got ", current, " expected 100000000000000001")
 	}
 
 	current = NextCardCzar(players, current)
-	if current != 5 {
-		t.Error("Got ", current, " exected 5")
+	if current != "100000000000000002" {
+		t.Error("Got ", current, " expected 100000000000000002")
 	}
 
 	current = NextCardCzar(players, current)
-	if current != 1 {
-		t.Error("Got ", current, " exected 1")
+	if current != "100000000000000005" {
+		t.Error("Got ", current, " expected 100000000000000005")
+	}
+
+	current = NextCardCzar(players, current)
+	if current != "100000000000000001" {
+		t.Error("Got ", current, " expected 100000000000000001")
 	}
 }
 
 func TestNextCardCzar2(t *testing.T) {
 	players := []*Player{
-		{ID: 5, Playing: true, InGame: true},
-		{ID: 1, Playing: true, InGame: true},
-		{ID: 2, Playing: true, InGame: true},
+		{ID: "100000000000000005", Playing: true, InGame: true},
+		{ID: "100000000000000001", Playing: true, InGame: true},
+		{ID: "100000000000000002", Playing: true, InGame: true},
 	}
 
-	current := NextCardCzar(players, 0)
-	if current != 1 {
-		t.Error("Got ", current, " exected 1")
-	}
-
-	current = NextCardCzar(players, current)
-	if current != 2 {
-		t.Error("Got ", current, " exected 2")
+	current := NextCardCzar(players, "")
+	if current != "100000000000000001" {
+		t.Error("Got ", current, " expected 100000000000000001")
 	}
 
 	current = NextCardCzar(players, current)
-	if current != 5 {
-		t.Error("Got ", current, " exected 5")
+	if current != "100000000000000002" {
+		t.Error("Got ", current, " expected 100000000000000002")
 	}
 
 	current = NextCardCzar(players, current)
-	if current != 1 {
-		t.Error("Got ", current, " exected 1")
+	if current != "100000000000000005" {
+		t.Error("Got ", current, " expected 100000000000000005")
+	}
+
+	current = NextCardCzar(players, current)
+	if current != "100000000000000001" {
+		t.Error("Got ", current, " expected 100000000000000001")
 	}
 }
 
 func TestNextCardCzar3(t *testing.T) {
 	players := []*Player{
-		{ID: 5, Playing: true, InGame: true},
-		{ID: 1, Playing: true, InGame: true},
-		{ID: 2, Playing: true, InGame: true},
-		{ID: 3, Playing: true, InGame: true},
+		{ID: "100000000000000005", Playing: true, InGame: true},
+		{ID: "100000000000000001", Playing: true, InGame: true},
+		{ID: "100000000000000002", Playing: true, InGame: true},
+		{ID: "100000000000000003", Playing: true, InGame: true},
 	}
 
-	current := NextCardCzar(players, 0)
-	if current != 1 {
-		t.Error("Got ", current, " exected 1")
-	}
-
-	current = NextCardCzar(players, current)
-	if current != 2 {
-		t.Error("Got ", current, " exected 2")
+	current := NextCardCzar(players, "")
+	if current != "100000000000000001" {
+		t.Error("Got ", current, " expected 100000000000000001")
 	}
 
 	current = NextCardCzar(players, current)
-	if current != 3 {
-		t.Error("Got ", current, " exected 3")
+	if current != "100000000000000002" {
+		t.Error("Got ", current, " expected 100000000000000002")
 	}
 
 	current = NextCardCzar(players, current)
-	if current != 5 {
-		t.Error("Got ", current, " exected 5")
+	if current != "100000000000000003" {
+		t.Error("Got ", current, " expected 100000000000000003")
 	}
 
 	current = NextCardCzar(players, current)
-	if current != 1 {
-		t.Error("Got ", current, " exected 1")
+	if current != "100000000000000005" {
+		t.Error("Got ", current, " expected 100000000000000005")
+	}
+
+	current = NextCardCzar(players, current)
+	if current != "100000000000000001" {
+		t.Error("Got ", current, " expected 100000000000000001")
 	}
 }
 
